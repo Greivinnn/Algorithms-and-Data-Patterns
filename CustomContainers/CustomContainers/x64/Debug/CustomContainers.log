@@ -1,0 +1,12 @@
+﻿  CustomContainers.cpp
+C:\LASALLE SECOND YEAR\Algorithms and Data Patterns\CustomContainers\CustomContainers\CustomContainers.cpp(12,23): warning C4267: '=': conversion from 'size_t' to 'T', possible loss of data
+C:\LASALLE SECOND YEAR\Algorithms and Data Patterns\CustomContainers\CustomContainers\CustomContainers.cpp(12,23): warning C4267:         with
+C:\LASALLE SECOND YEAR\Algorithms and Data Patterns\CustomContainers\CustomContainers\CustomContainers.cpp(12,23): warning C4267:         [
+C:\LASALLE SECOND YEAR\Algorithms and Data Patterns\CustomContainers\CustomContainers\CustomContainers.cpp(12,23): warning C4267:             T=int
+C:\LASALLE SECOND YEAR\Algorithms and Data Patterns\CustomContainers\CustomContainers\CustomContainers.cpp(12,23): warning C4267:         ]
+C:\LASALLE SECOND YEAR\Algorithms and Data Patterns\CustomContainers\CustomContainers\CustomContainers.cpp(33,29): warning C4267: 'argument': conversion from 'size_t' to 'const T', possible loss of data
+C:\LASALLE SECOND YEAR\Algorithms and Data Patterns\CustomContainers\CustomContainers\CustomContainers.cpp(33,29): warning C4267:         with
+C:\LASALLE SECOND YEAR\Algorithms and Data Patterns\CustomContainers\CustomContainers\CustomContainers.cpp(33,29): warning C4267:         [
+C:\LASALLE SECOND YEAR\Algorithms and Data Patterns\CustomContainers\CustomContainers\CustomContainers.cpp(33,29): warning C4267:             T=int
+C:\LASALLE SECOND YEAR\Algorithms and Data Patterns\CustomContainers\CustomContainers\CustomContainers.cpp(33,29): warning C4267:         ]
+  CustomContainers.vcxproj -> C:\LASALLE SECOND YEAR\Algorithms and Data Patterns\CustomContainers\x64\Debug\CustomContainers.exe
