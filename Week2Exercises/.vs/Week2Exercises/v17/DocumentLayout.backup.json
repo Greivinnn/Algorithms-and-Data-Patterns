@@ -1,0 +1,37 @@
+{
+  "Version": 1,
+  "WorkspaceRootPath": "C:\\LASALLE SECOND YEAR\\Algorithms-and-Data-Patterns\\Week2Exercises\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{5A41A829-7930-44CB-B6FD-F82391484328}|Week2Exercises\\Week2Exercises.vcxproj|C:\\LASALLE SECOND YEAR\\Algorithms-and-Data-Patterns\\Week2Exercises\\Week2Exercises\\Week2Exercises.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{5A41A829-7930-44CB-B6FD-F82391484328}|Week2Exercises\\Week2Exercises.vcxproj|solutionrelative:Week2Exercises\\Week2Exercises.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    }
+  ],
+  "DocumentGroupContainers": [
+    {
+      "Orientation": 0,
+      "VerticalTabListWidth": 256,
+      "DocumentGroups": [
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": 0,
+          "Children": [
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "Week2Exercises.cpp",
+              "DocumentMoniker": "C:\\LASALLE SECOND YEAR\\Algorithms-and-Data-Patterns\\Week2Exercises\\Week2Exercises\\Week2Exercises.cpp",
+              "RelativeDocumentMoniker": "Week2Exercises\\Week2Exercises.cpp",
+              "ToolTip": "C:\\LASALLE SECOND YEAR\\Algorithms-and-Data-Patterns\\Week2Exercises\\Week2Exercises\\Week2Exercises.cpp",
+              "RelativeToolTip": "Week2Exercises\\Week2Exercises.cpp",
+              "ViewState": "AgIAAAgAAAAAAAAAAAAAwBEAAABFAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
+              "WhenOpened": "2026-01-14T02:18:43.704Z",
+              "EditorCaption": ""
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

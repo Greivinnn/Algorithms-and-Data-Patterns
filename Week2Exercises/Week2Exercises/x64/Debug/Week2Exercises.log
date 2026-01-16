@@ -1,0 +1,4 @@
+﻿  Week2Exercises.cpp
+C:\LASALLE SECOND YEAR\Algorithms-and-Data-Patterns\Week2Exercises\Week2Exercises\Week2Exercises.cpp(49,12): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
+C:\LASALLE SECOND YEAR\Algorithms-and-Data-Patterns\Week2Exercises\Week2Exercises\Week2Exercises.cpp(59,12): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
+  Week2Exercises.vcxproj -> C:\LASALLE SECOND YEAR\Algorithms-and-Data-Patterns\Week2Exercises\x64\Debug\Week2Exercises.exe

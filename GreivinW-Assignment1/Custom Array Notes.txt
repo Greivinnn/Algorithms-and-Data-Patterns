@@ -1,0 +1,26 @@
+What is in this array?
+- the Array<T, N> is:
+	- A template class
+	- stores N elements
+	- of any type T
+	- Using dynamic memory (new[])
+	- with array-like access ([])
+
+SUMMARY
+------------------------------------------------------------------------------------------------------------------------------------------------
+The Array<T, N> class is a templated container that stores a fixed number (N) of elements of any type (T). 
+The size of the array is known at compile time through the template parameter N.
+
+The class dynamically allocates memory using new[] in its constructor and releases it using delete[] in the destructor, preventing memory leaks. 
+Elements are stored in a raw pointer (mValues) that points to a contiguous block of memory.
+
+The class provides:
+
+	-operator[] for array-style element access
+
+	-Size() to return the number of elements
+
+	-Data() to access the underlying raw pointer
+
+	-Const-correct overloads for safe read-only access
+------------------------------------------------------------------------------------------------------------------------------------------------
