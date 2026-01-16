@@ -171,7 +171,7 @@ int main()
 	std::cout << "\nRandomly Selected Players for Battle: \n";
 	std::cout << "--------------------------------\n";
 	playersVector[randomPlayer1].PrintStats();
-	std::cout << "---------------vs---------------\n";
+	std::cout << "---------------\033[31mvs\033[0m---------------\n";
 	playersVector[randomPlayer2].PrintStats();
 
 	Fight(playersVector[randomPlayer1], playersVector[randomPlayer2]);
