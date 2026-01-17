@@ -4,32 +4,24 @@
 
 int main()
 {
-    std::cout << "Custom Containers!\n";
+	Array<int, 10> myInts;
+	for (int i = 0; i < myInts.Size(); ++i)
+	{
+		myInts[i] = rand() % 100;
+	}
 
-    Array<int, 5> myInts(0);
-    for (std::size_t i = 0; i < myInts.Size(); ++i)
-    {
-        myInts[i] = i + 1;
-    }
+	// non-const iterator 
+	for (Array<int, 10>::Iterator iter = myInts.Begin(); iter != myInts.End(); ++iter)
+	{
+		std::cout << "Array Value: " << *iter << "\n";
+	}
 
-    for (std::size_t i = 0; i < myInts.Size(); ++i)
-    {
-        std::cout << "Value at: " << i << " is " << myInts[i] << "\n";
-    }
-
-    Vector<int> myVector;
-    myVector.Reserve(10);
-    for (int i = 0; i < 10; ++i)
-    {
-        myVector.PushBack(i + 1);
-    }
-    std::cout << "Vector:\n";
-    for (size_t i = 0; i < myVector.Size(); ++i)
-    {
-        std::cout << "Value at " << i << " is " << myVector[i] << "\n";
-    }
-    for (std::size_t i = 0; i < 20; ++i)
-    {
-        myVector.PushBack(i + 1);
-    }
+	std::sort(myInts.Begin(), myInts.End());
+	/*std::cout << "Array sorted:\n";
+	for (Array<int, 10>::Iterator iter = myInts.Begin(); iter != myInts.End(); ++iter)
+	{
+		std::cout << "Array Value: " << *iter << "\n";
+	}*/
+ 
+	return 0;
 }

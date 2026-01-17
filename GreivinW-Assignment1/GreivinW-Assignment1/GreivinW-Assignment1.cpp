@@ -130,7 +130,7 @@ int main()
 	Player Player23("Mario");
 	Player Player24("Ronaldo");
 	Player Player25("Speed");
-	Player Player26("Holoa");
+	Player Player26("Messi");
 
 	playersVector.PushBack(Player11);
 	playersVector.PushBack(Player12);

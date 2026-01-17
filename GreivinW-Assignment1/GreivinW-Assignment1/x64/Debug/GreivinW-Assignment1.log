@@ -1,1 +1,3 @@
-﻿
+﻿  GreivinW-Assignment1.cpp
+C:\LASALLE SECOND YEAR\Algorithms-and-Data-Patterns\GreivinW-Assignment1\GreivinW-Assignment1\GreivinW-Assignment1.cpp(62,22): warning C4244: 'argument': conversion from 'time_t' to 'unsigned int', possible loss of data
+  GreivinW-Assignment1.vcxproj -> C:\LASALLE SECOND YEAR\Algorithms-and-Data-Patterns\GreivinW-Assignment1\x64\Debug\GreivinW-Assignment1.exe

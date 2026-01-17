@@ -25,6 +25,49 @@ public:
 		mSize = 0;
 	}
 
+	Vector(const Vector& other)
+	{
+		if (other.mCapacity > 0)
+		{
+			mValues = new T[other.mCapacity];
+			for (int i = 0; i < other.mCapacity; ++i)
+			{
+				mValues[i] = other.mValues[i];
+			}
+		}
+		mSize = other.mSize;
+		mCapacity = other.mCapacity;
+		return *this;
+	}
+	Vector(Vector&& other)
+	{
+		mValues = std::move(other.mValues);
+		mSize = other.mSize;
+		mCapacity = other.mCapacity;
+
+		other.mSize = 0;
+		other.mCapacity = 0;
+	}
+	Vector& operator=(const Vector& other)
+	{
+		if (mValues != nullptr)
+		{
+			delete[] mValues;
+			mValues = nullptr;
+		}
+		if (other.mCapacity > 0)
+		{
+			mValues = new T[other.mCapacity];
+			for (int i = 0; i < other.mCapacity; ++i)
+			{
+				mValues[i] = other.mValues[i];
+			}
+		}
+		mSize = other.mSize;
+		mCapacity = other.mCapacity;
+		return *this;
+	}
+
 	// Reserve, allocates data for space requirements (only if increasing capacity ofc duuh)
 	void Reserve(std::size_t capacity)
 	{
@@ -118,6 +161,14 @@ public:
 	{
 		return mValues[index];
 	}
+
+	// Iterator part
+	using Iterator = ContainerIterator<T>;
+	using Const_Iterator = ContainerIterator<const T>;
+	Iterator Begin() { return Iterator(mValues); }
+	Iterator End() { return Iterator(mValues + mSize); }
+	Const_Iterator Begin() const { return Const_Iterator(mValues); }
+	Const_Iterator End() const { return Const_Iterator(mValues + mSize); }
 private:
 	T* mValues;
 	std::size_t mCapacity = 0;
