@@ -1,26 +1,23 @@
 #include <iostream>
 #include "Array.h"
 #include "Vector.h"
+#include "PriorityQueue.h"
 
 int main()
 {
-	Array<int, 10> myInts;
-	for (int i = 0; i < myInts.Size(); ++i)
+	PriorityQueue<int> priorityQueue;
+	for (int i = 0; i < 20; ++i)
 	{
-		myInts[i] = rand() % 100;
+		int value = rand() % 100;
+		priorityQueue.Push(value);
+		std::cout << value << " ";
 	}
+	std::cout << "\n\n";
 
-	// non-const iterator 
-	for (Array<int, 10>::Iterator iter = myInts.Begin(); iter != myInts.End(); ++iter)
+	/*while (!priorityQueue.Empty())
 	{
-		std::cout << "Array Value: " << *iter << "\n";
-	}
-
-	std::sort(myInts.Begin(), myInts.End());
-	/*std::cout << "Array sorted:\n";
-	for (Array<int, 10>::Iterator iter = myInts.Begin(); iter != myInts.End(); ++iter)
-	{
-		std::cout << "Array Value: " << *iter << "\n";
+		std::cout << priorityQueue.Top() << "\n";
+		priorityQueue.Pop();
 	}*/
  
 	return 0;

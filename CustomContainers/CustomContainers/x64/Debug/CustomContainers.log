@@ -1,2 +1,17 @@
 ﻿  CustomContainers.cpp
+C:\LASALLE SECOND YEAR\Algorithms-and-Data-Patterns\CustomContainers\CustomContainers\PriorityQueue.h(25,20): warning C4267: 'argument': conversion from 'size_t' to 'int', possible loss of data
+  (compiling source file 'CustomContainers.cpp')
+      C:\LASALLE SECOND YEAR\Algorithms-and-Data-Patterns\CustomContainers\CustomContainers\PriorityQueue.h(25,20):
+      the template instantiation context (the oldest one first) is
+          C:\LASALLE SECOND YEAR\Algorithms-and-Data-Patterns\CustomContainers\CustomContainers\CustomContainers.cpp(8,21):
+          see reference to class template instantiation 'PriorityQueue<int>' being compiled
+          C:\LASALLE SECOND YEAR\Algorithms-and-Data-Patterns\CustomContainers\CustomContainers\PriorityQueue.h(22,7):
+          while compiling class template member function 'void PriorityQueue<int>::Push(const T &)'
+          with
+          [
+              T=int
+          ]
+              C:\LASALLE SECOND YEAR\Algorithms-and-Data-Patterns\CustomContainers\CustomContainers\CustomContainers.cpp(12,21):
+              see the first reference to 'PriorityQueue<int>::Push' in 'main'
+  
   CustomContainers.vcxproj -> C:\LASALLE SECOND YEAR\Algorithms-and-Data-Patterns\CustomContainers\x64\Debug\CustomContainers.exe
