@@ -37,13 +37,17 @@ public:
 			return;
 		}
 		mValues[0] = mValues[Size() - 1];
-		HeapifyUp(Size() - 1);
+		mValues.PopBack();
+		if (!Empty())
+		{
+			HeapifyDown(0);
+		}
 
 	}
 private:
 	void Swap(T& value1, T& value2)
 	{
-		T& temp = value1;
+		T temp = value1;
 		value1 = value2;
 		value2 = temp;
 	}
@@ -52,7 +56,7 @@ private:
 	{
 		int parent = (index - 1) / 2;
 
-		while (index > 0 && mValues[index] > mValues[parent]);
+		while (index > 0 && mValues[index] > mValues[parent])
 		{
 			Swap(mValues[index], mValues[parent]);
 			index = parent;

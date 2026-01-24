@@ -2,16 +2,19 @@
 #include <iostream>
 
 // constructor
-Item::Item(ItemType itemType, int value)
-	: mType(itemType), mValue(value), mCount(0)
+Item::Item(ItemType itemType, int value, int initialCount)
+	: mType(itemType), mValue(value), mCount(initialCount)
 {
 	initializeItemName();
 }
 
 // default constructor
 Item::Item()
+	: mType(ItemType::SmallHpPotion), mValue(0), mCount(0)
 {
+	initializeItemName();
 }
+
 void Item::initializeItemName()
 {
 	switch (mType)
@@ -70,4 +73,9 @@ void Item::PrintItems() const
 ItemType Item::GetItemType() const
 {
 	return mType;
+}
+
+int Item::GetCount() const
+{
+	return mCount;
 }

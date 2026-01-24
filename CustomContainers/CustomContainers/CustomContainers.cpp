@@ -2,23 +2,38 @@
 #include "Array.h"
 #include "Vector.h"
 #include "PriorityQueue.h"
+#include "Vector2.h";
+#include "KDTree.h"
+#include <string>
+
+struct Item
+{
+	std::string namme;
+	Vector2 position;
+};
 
 int main()
 {
-	PriorityQueue<int> priorityQueue;
-	for (int i = 0; i < 20; ++i)
+	Vector<Item> items;
+	KDTree<float, 2> itemLocations;
+	int maxItems = 100;
+	items.Resize(maxItems);
+	for (int i = 0; i < maxItems; ++i)
 	{
-		int value = rand() % 100;
-		priorityQueue.Push(value);
-		std::cout << value << " ";
-	}
-	std::cout << "\n\n";
+		items[i].namme = "ItemName" + std::to_string(i);
+		items[i].position = { (float)(rand() % 501), (float)(rand() % 501) };
 
-	/*while (!priorityQueue.Empty())
-	{
-		std::cout << priorityQueue.Top() << "\n";
-		priorityQueue.Pop();
-	}*/
- 
+		itemLocations.AddItem(&items[i].position.x, &items[i]);
+	}
+
+	itemLocations.BuildTree();
+
+	Vector2 minRange = { 200.0f, 200.0f };
+	Vector2 maxRange = { 300.0f, 300.0f };
+
+	Vector<const void*> itemsInRange;
+	itemLocations.FindInRange(itemsInRange, j & minRange.x, &maxRange.x);
+
+	for(Vector<)
 	return 0;
 }

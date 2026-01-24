@@ -15,7 +15,7 @@ class Item
 {
 public:
 	// constructor
-	Item(ItemType itemType, int value);
+	Item(ItemType itemType, int value, int initialCount = 0);
 	// default constructor
 	Item();
 	// initializes item with their name
@@ -30,6 +30,14 @@ public:
 	void PrintItems() const;
 	// get item type
 	ItemType GetItemType() const;
+	// get item count
+	int GetCount() const;
+
+	// comparison operator for priority queue (compares by count)
+	bool operator>(const Item& other) const
+	{
+		return mCount > other.mCount;
+	}
 private:
 	// stores item type
 	ItemType mType;
