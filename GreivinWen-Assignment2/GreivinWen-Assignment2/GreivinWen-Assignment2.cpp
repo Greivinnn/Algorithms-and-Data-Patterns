@@ -3,6 +3,8 @@
 
 #include <iostream>
 #include "Item.h"
+#include "Inventory.h"
+
 
 int main()
 {
@@ -12,6 +14,9 @@ int main()
 	smallPotion.AddItem();
 	smallPotion.AddItem();
 	smallPotion.PrintItems();
+
+	Inventory playerInventory;
+	playerInventory.DisplayInventory();
 	
 	return 0;
 }

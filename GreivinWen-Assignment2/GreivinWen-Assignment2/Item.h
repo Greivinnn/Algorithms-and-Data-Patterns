@@ -16,6 +16,8 @@ class Item
 public:
 	// constructor
 	Item(ItemType itemType, int value);
+	// default constructor
+	Item();
 	// initializes item with their name
 	void initializeItemName();
 	// destructor

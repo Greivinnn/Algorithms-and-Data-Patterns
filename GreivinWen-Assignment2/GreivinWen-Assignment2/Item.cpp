@@ -7,6 +7,11 @@ Item::Item(ItemType itemType, int value)
 {
 	initializeItemName();
 }
+
+// default constructor
+Item::Item()
+{
+}
 void Item::initializeItemName()
 {
 	switch (mType)
