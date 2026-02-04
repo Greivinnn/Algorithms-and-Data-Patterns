@@ -151,6 +151,19 @@ public:
 		Resize(mSize - 1);
 	}
 
+	//judt adding to have a functional queue, not constastly a vector
+	void PopFront()
+	{
+		for(std::size_t i = 0; i < mSize - 1; ++i)
+		{
+			T tmp = mValues[i];
+			mValues[i] = mValues[i + 1];
+			mValues[i + 1] = tmp;
+		}
+		PopBack();
+
+	}
+
 	// accessing the data 
 	T& operator[] (std::size_t index)
 	{
