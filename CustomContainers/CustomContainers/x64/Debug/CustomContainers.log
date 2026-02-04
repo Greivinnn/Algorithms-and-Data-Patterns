@@ -1,15 +1,14 @@
 ﻿  CustomContainers.cpp
 C:\LASALLE SECOND YEAR\Algorithms-and-Data-Patterns\CustomContainers\CustomContainers\CustomContainers.cpp(5,10): warning C4067: unexpected tokens following preprocessor directive - expected a newline
-C:\LASALLE SECOND YEAR\Algorithms-and-Data-Patterns\CustomContainers\CustomContainers\CustomContainers.cpp(68,13): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
-C:\LASALLE SECOND YEAR\Algorithms-and-Data-Patterns\CustomContainers\CustomContainers\CustomContainers.cpp(75,13): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
-C:\LASALLE SECOND YEAR\Algorithms-and-Data-Patterns\CustomContainers\CustomContainers\CustomContainers.cpp(180,14): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
-C:\LASALLE SECOND YEAR\Algorithms-and-Data-Patterns\CustomContainers\CustomContainers\CustomContainers.cpp(195,14): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
-C:\LASALLE SECOND YEAR\Algorithms-and-Data-Patterns\CustomContainers\CustomContainers\CustomContainers.cpp(338,19): warning C4553: '==': result of expression not used; did you intend '='?
+C:\LASALLE SECOND YEAR\Algorithms-and-Data-Patterns\CustomContainers\CustomContainers\CustomContainers.cpp(66,16): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
+C:\LASALLE SECOND YEAR\Algorithms-and-Data-Patterns\CustomContainers\CustomContainers\CustomContainers.cpp(74,16): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
+C:\LASALLE SECOND YEAR\Algorithms-and-Data-Patterns\CustomContainers\CustomContainers\CustomContainers.cpp(179,20): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
+C:\LASALLE SECOND YEAR\Algorithms-and-Data-Patterns\CustomContainers\CustomContainers\CustomContainers.cpp(195,20): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
 C:\LASALLE SECOND YEAR\Algorithms-and-Data-Patterns\CustomContainers\CustomContainers\Graph.h(42,30): warning C4267: 'return': conversion from 'size_t' to 'int', possible loss of data
   (compiling source file 'CustomContainers.cpp')
       C:\LASALLE SECOND YEAR\Algorithms-and-Data-Patterns\CustomContainers\CustomContainers\Graph.h(42,30):
       the template instantiation context (the oldest one first) is
-          C:\LASALLE SECOND YEAR\Algorithms-and-Data-Patterns\CustomContainers\CustomContainers\CustomContainers.cpp(265,14):
+          C:\LASALLE SECOND YEAR\Algorithms-and-Data-Patterns\CustomContainers\CustomContainers\CustomContainers.cpp(276,17):
           see reference to class template instantiation 'Graph<Tile>' being compiled
           C:\LASALLE SECOND YEAR\Algorithms-and-Data-Patterns\CustomContainers\CustomContainers\Graph.h(34,9):
           while compiling class template member function 'int Graph<Tile>::AddItem(const T *)'
@@ -17,24 +16,7 @@ C:\LASALLE SECOND YEAR\Algorithms-and-Data-Patterns\CustomContainers\CustomConta
           [
               T=Tile
           ]
-              C:\LASALLE SECOND YEAR\Algorithms-and-Data-Patterns\CustomContainers\CustomContainers\CustomContainers.cpp(297,24):
-              see the first reference to 'Graph<Tile>::AddItem' in 'main'
+              C:\LASALLE SECOND YEAR\Algorithms-and-Data-Patterns\CustomContainers\CustomContainers\CustomContainers.cpp(309,29):
+              see the first reference to 'Graph<Tile>::AddItem' in 'TileMapSearch'
   
-C:\LASALLE SECOND YEAR\Algorithms-and-Data-Patterns\CustomContainers\CustomContainers\Vector.h(40,3): error C2534: 'Vector<Tile>': constructor cannot return a value
-  (compiling source file 'CustomContainers.cpp')
-      C:\LASALLE SECOND YEAR\Algorithms-and-Data-Patterns\CustomContainers\CustomContainers\Vector.h(7,7):
-      see declaration of 'Vector<Tile>'
-      C:\LASALLE SECOND YEAR\Algorithms-and-Data-Patterns\CustomContainers\CustomContainers\Vector.h(40,3):
-      the template instantiation context (the oldest one first) is
-          C:\LASALLE SECOND YEAR\Algorithms-and-Data-Patterns\CustomContainers\CustomContainers\CustomContainers.cpp(227,6):
-          see reference to class template instantiation 'Vector<Tile>' being compiled
-          C:\LASALLE SECOND YEAR\Algorithms-and-Data-Patterns\CustomContainers\CustomContainers\Vector.h(28,2):
-          while compiling class template member function 'Vector<Tile>::Vector(const Vector<Tile> &)'
-              C:\LASALLE SECOND YEAR\Algorithms-and-Data-Patterns\CustomContainers\CustomContainers\CustomContainers.cpp(318,14):
-              see the first reference to 'Vector<Tile>::Vector' in 'main'
-  
-C:\LASALLE SECOND YEAR\Algorithms-and-Data-Patterns\CustomContainers\CustomContainers\Vector.h(40,3): error C2562: 'Vector<Tile>::Vector': 'void' function returning a value
-  (compiling source file 'CustomContainers.cpp')
-      C:\LASALLE SECOND YEAR\Algorithms-and-Data-Patterns\CustomContainers\CustomContainers\Vector.h(28,2):
-      see declaration of 'Vector<Tile>::Vector'
-  
+  CustomContainers.vcxproj -> C:\LASALLE SECOND YEAR\Algorithms-and-Data-Patterns\CustomContainers\x64\Debug\CustomContainers.exe
