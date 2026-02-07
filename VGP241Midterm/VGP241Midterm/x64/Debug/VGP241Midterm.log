@@ -1,0 +1,4 @@
+﻿  VGP241Midterm.cpp
+C:\LASALLE SECOND YEAR\Algorithms-and-Data-Patterns\VGP241Midterm\VGP241Midterm\VGP241Midterm.cpp(110,15): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
+C:\LASALLE SECOND YEAR\Algorithms-and-Data-Patterns\VGP241Midterm\VGP241Midterm\VGP241Midterm.cpp(315,20): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
+  VGP241Midterm.vcxproj -> C:\LASALLE SECOND YEAR\Algorithms-and-Data-Patterns\VGP241Midterm\x64\Debug\VGP241Midterm.exe
