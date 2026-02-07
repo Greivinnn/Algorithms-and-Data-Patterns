@@ -129,6 +129,8 @@
     <ClInclude Include="Array.h" />
     <ClInclude Include="ContainerIterator.h" />
     <ClInclude Include="Graph.h" />
+    <ClInclude Include="Inventory.h" />
+    <ClInclude Include="Item.h" />
     <ClInclude Include="KDTree.h" />
     <ClInclude Include="PriorityQueue.h" />
     <ClInclude Include="Vector.h" />

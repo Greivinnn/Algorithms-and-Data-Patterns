@@ -394,8 +394,33 @@ void TileMapSearch()
     }
 }
 
+// Homework assignment 3
+enum class PickupType
+{
+    Invalid,
+    Health,
+    Ammo,
+    Coins,
+    Upgrade,
+    SpecialItem,
+    Count
+};
+
+class PickUp
+{
+public:
+    PickUp(PickupType pickupType, const Vector2& pos)
+    {
+        
+    }
+private:
+    PickupType mType;
+    std::string mName;
+    Vector2 mPosition;
+};
+
 int main()
 {
-	TileMapSearch();
+
 }
 
