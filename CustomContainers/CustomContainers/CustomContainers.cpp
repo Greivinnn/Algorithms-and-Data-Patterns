@@ -6,6 +6,9 @@
 #include "KDTree.h"
 #include <string>
 #include "Graph.h"
+#include "Vector3.h"
+#include <cstdlib> 
+#include <ctime>   
 
 struct Item
 {
@@ -397,30 +400,315 @@ void TileMapSearch()
 // Homework assignment 3
 enum class PickupType
 {
-    Invalid,
-    Health,
-    Ammo,
-    Coins,
-    Upgrade,
-    SpecialItem,
-    Count
+    Invalid,        // 0
+    Health,         // 1
+    Ammo,           // 2
+    Coins,          // 3
+    Upgrade,        // 4
+    SpecialItem,    // 5
+    Count           // 6
 };
 
 class PickUp
 {
 public:
-    PickUp(PickupType pickupType, const Vector2& pos)
+    PickUp(PickupType pickupType, const Vector3& pos)
+        : mType(pickupType), mPosition(pos)
     {
-        
+        if (pickupType == PickupType::Invalid)
+        {
+            mName = "Invalid";
+        }
+        else if (pickupType == PickupType::Health)
+        {
+            mName = "Health";
+        }
+        else if (pickupType == PickupType::Ammo)
+        {
+            mName = "Ammo";
+        }
+        else if (pickupType == PickupType::Coins)
+        {
+            mName = "Coins";
+        }
+        else if (pickupType == PickupType::Upgrade)
+        {
+            mName = "Upgrade";
+        }
+        else if (pickupType == PickupType::SpecialItem)
+        {
+            mName = "Special_Item";
+        }
+    }
+
+    PickUp()
+        : mType(PickupType::Invalid), mPosition(0.0f, 0.0f, 0.0f)
+    {
+
+    }
+
+    const Vector3& GetPosition() const
+    {
+        return mPosition;
+    }
+
+    const PickupType& GetType() const
+    {
+        return mType;
+    }
+
+    const std::string& GetName() const
+    {
+        return mName;
     }
 private:
     PickupType mType;
     std::string mName;
-    Vector2 mPosition;
+    Vector3 mPosition;
 };
+
+class PickupManager
+{
+public:
+    PickupManager()
+    {
+
+    }
+    ~PickupManager()
+    {
+
+    }
+
+    void ReservePickups(std::size_t count)
+    {
+        mPickUpVector.Reserve(count);
+    }
+
+    // adds an item to the pickups and stores the position of it
+    // also stores the pickup in the KDTree
+    void AddItem(PickupType pickupType, const Vector3& pos)
+    {
+        // create and add pick up to vector
+        mPickUpVector.PushBack(PickUp(pickupType, pos));
+
+        // get pointer to the newly added pick up
+        PickUp* pickupPtr = &mPickUpVector[mPickUpVector.Size() - 1];
+
+        pickupPtr->GetPosition().x;
+
+        // add to KDTree - pointer to position and pickup as user data
+        mKDTree.AddItem(&pickupPtr->GetPosition().x, pickupPtr);
+    }
+    // does a search to find the closest item to the position
+    const PickUp* GetClosestPickup(const Vector3& pos)
+    {
+        // make a const void to get the result of the KDTree.FindNearest at pos x
+        const void* result = mKDTree.FindNearest(&pos.x);
+        // static cast convert the void pointer to a pickup pointer and return it
+        return (const PickUp*)result;
+    }
+    // do a search to find all items within a given range
+    // use the pickupType to find a specific item, if Invalid, get all pickups in range
+    void ObtainPickupsInRange(const Vector3& pos, float range, PickupType pickupType)
+    {
+        mLastSearchResults.Clear();
+
+        // calculate the max and min range
+        Vector3 minRange(pos.x - range, pos.y - range, pos.z - range);
+        Vector3 maxRange(pos.x + range, pos.y + range, pos.z + range);
+
+        // create a vector to store the void pointers from our KDTree
+        Vector<const void*> foundItems;
+
+        // if pickups invalid = get all pickups
+        if (pickupType == PickupType::Invalid)
+        {
+            mKDTree.FindInRange(foundItems, &minRange.x, &maxRange.x, nullptr);
+        }
+        else
+        {
+            // Filter by pickup type using a lambda
+            // how it works:
+            // filterByType stores a lambda function 
+            // [pickupType] is the capture clause, this tells the code capture the variable pickupType from surrounding scope
+            // -> bool is the return type either true if is a valid pickupType, false if its invalid 
+            auto filterByType = [pickupType](const void* userData) -> bool
+                {
+                    // static cast to make our void pointer userData to a Pickup pointer
+                    const PickUp* pickup = (const PickUp*)userData;
+                    // return the pickupType we got 
+                    return pickup->GetType() == pickupType;
+                };
+
+            // pass everything to the KDTree function 
+            mKDTree.FindInRange(foundItems, &minRange.x, &maxRange.x, filterByType);
+        }
+
+        // store the results in member variable so they can be accessed after the function call
+        for (int i = 0; i < foundItems.Size(); ++i)
+        {
+            mLastSearchResults.PushBack((const PickUp*)foundItems[i]);
+        }
+    }
+
+    const Vector<const PickUp*> GetLastSearchResults() const
+    {
+        return mLastSearchResults;
+    }
+
+    void BuildTree()
+    {
+        mKDTree.BuildTree();
+    }
+
+private:
+    Vector<PickUp> mPickUpVector;
+    KDTree<float, 3> mKDTree;
+    Vector<const PickUp*> mLastSearchResults; // stores the results from ObtainPickupsInRange
+};
+
+// calculates the distance between two 3D points (player and item)
+float CalculateDistance(const Vector3& pos1, const Vector3& pos2)
+{
+    float dx = pos2.x - pos1.x;
+    float dy = pos2.y - pos1.y;
+    float dz = pos2.z - pos1.z;
+    return sqrt(dx * dx + dy * dy + dz * dz);
+}
+
+void PrintPickupsInAttractRange(PickupManager& manager, const Vector3& playerPos, float attractRange)
+{
+    std::cout << "========================================\n";
+    std::cout << "C. ITEMS IN ATTRACT RANGE (" << attractRange << "f):\n";
+    std::cout << "========================================\n";
+
+    // Call the existing ObtainPickupsInRange function
+    manager.ObtainPickupsInRange(playerPos, attractRange, PickupType::Invalid);
+
+    // Get the results from the function
+    const Vector<const PickUp*>& pickupsInRange = manager.GetLastSearchResults();
+
+    if (pickupsInRange.Size() == 0)
+    {
+        std::cout << "No pickups found in attract range.\n";
+    }
+    else
+    {
+        std::cout << "Found " << pickupsInRange.Size() << " pickup(s) in attract range:\n";
+        for (int i = 0; i < pickupsInRange.Size(); ++i)
+        {
+            const PickUp* pickup = pickupsInRange[i];
+            const Vector3& pickupPos = pickup->GetPosition();
+            float distance = CalculateDistance(playerPos, pickupPos);
+
+            std::cout << "  - " << pickup->GetName()
+                << " at position (" << pickupPos.x << ", " << pickupPos.y << ", " << pickupPos.z << ")"
+                << " | Distance: " << distance << "\n";
+        }
+    }
+}
+
+void PrintHealthPickupsInRange(PickupManager& manager, const Vector3& playerPos, float searchRange)
+{
+    std::cout << "========================================\n";
+    std::cout << "D. HEALTH PICKUPS IN RANGE (" << searchRange << "f):\n";
+    std::cout << "========================================\n";
+
+    // Call the existing ObtainPickupsInRange function with Health filter
+    manager.ObtainPickupsInRange(playerPos, searchRange, PickupType::Health);
+
+    // Get the results from the function
+    const Vector<const PickUp*>& healthPickups = manager.GetLastSearchResults();
+
+    if (healthPickups.Size() == 0)
+    {
+        std::cout << "No health pickups found in range.\n";
+    }
+    else
+    {
+        std::cout << "Found " << healthPickups.Size() << " health pickup(s):\n";
+        for (int i = 0; i < healthPickups.Size(); ++i)
+        {
+            const PickUp* pickup = healthPickups[i];
+            const Vector3& pickupPos = pickup->GetPosition();
+            float distance = CalculateDistance(playerPos, pickupPos);
+
+            std::cout << "  - " << pickup->GetName()
+                << " at position (" << pickupPos.x << ", " << pickupPos.y << ", " << pickupPos.z << ")"
+                << " | Distance: " << distance << "\n";
+        }
+    }
+}
+
+void PrintClosestPickup(PickupManager& manager, const Vector3& playerPos)
+{
+    std::cout << "========================================\n";
+    std::cout << "E. CLOSEST PICKUP TO PLAYER:\n";
+    std::cout << "========================================\n";
+
+    const PickUp* closestPickup = manager.GetClosestPickup(playerPos);
+
+    if (closestPickup != nullptr)
+    {
+        const Vector3& pickupPos = closestPickup->GetPosition();
+        float distance = CalculateDistance(playerPos, pickupPos);
+
+        std::cout << "Closest pickup: " << closestPickup->GetName() << "\n";
+        std::cout << "Location: (" << pickupPos.x << ", " << pickupPos.y << ", " << pickupPos.z << ")\n";
+        std::cout << "Distance from player: " << distance << "\n";
+    }
+    else
+    {
+        std::cout << "No pickups found!\n";
+    }
+}
+
+void CreateRandomPickups(PickupManager& manager, int count)
+{
+    srand(time(0));
+
+    manager.ReservePickups(count);
+
+    for (int i = 0; i < count; ++i)
+    {
+        // random position range from 0 to 100 in decimal 
+        float x = static_cast<float>(rand() % 100);
+        float y = static_cast<float>(rand() % 100);
+        float z = static_cast<float>(rand() % 100);
+        Vector3 pos(x, y, z);
+
+        // Random pickup type excluding invalid ofc
+        int typeIndex = (rand() % 5) + 1;  // random from 1 to 5
+        PickupType type = static_cast<PickupType>(typeIndex);
+
+        manager.AddItem(type, pos);
+    }
+}
 
 int main()
 {
+    PickupManager manager;
+    Vector3 playerPos(50.0f, 50.0f, 50.0f);
+    float attractRange = 10.0f;
+    std::cout << "100 pickups created\n\n";
+    CreateRandomPickups(manager, 100);
+    manager.BuildTree();
+    manager.BuildTree();
+    
+    std::cout << "Player Position: (" << playerPos.x << ", " << playerPos.y << ", " << playerPos.z << ")\n";
+    std::cout << "Attract Range: " << attractRange << "\n\n";
 
+    // C
+    PrintPickupsInAttractRange(manager, playerPos, attractRange);
+    std::cout << "\n\n";
+
+    // D
+    float healthSearchRange = 50.0f;
+    PrintHealthPickupsInRange(manager, playerPos, healthSearchRange);
+    std::cout << "\n\n";
+
+    // E
+    PrintClosestPickup(manager, playerPos);
+    std::cout << "\n";
 }
 

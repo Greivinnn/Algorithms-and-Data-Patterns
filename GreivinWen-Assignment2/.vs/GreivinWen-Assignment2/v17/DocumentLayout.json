@@ -36,7 +36,7 @@
               "RelativeDocumentMoniker": "GreivinWen-Assignment2\\Item.cpp",
               "ToolTip": "C:\\LASALLE SECOND YEAR\\Algorithms-and-Data-Patterns\\GreivinWen-Assignment2\\GreivinWen-Assignment2\\Item.cpp",
               "RelativeToolTip": "GreivinWen-Assignment2\\Item.cpp",
-              "ViewState": "AgIAADAAAAAAAAAAAAAAAEgAAAAAAAAAAAAAAA==",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAA8AAAABAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
               "WhenOpened": "2026-02-07T02:58:57.179Z",
               "EditorCaption": ""
@@ -49,7 +49,7 @@
               "RelativeDocumentMoniker": "GreivinWen-Assignment2\\Inventory.cpp",
               "ToolTip": "C:\\LASALLE SECOND YEAR\\Algorithms-and-Data-Patterns\\GreivinWen-Assignment2\\GreivinWen-Assignment2\\Inventory.cpp",
               "RelativeToolTip": "GreivinWen-Assignment2\\Inventory.cpp",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAMAAAAAAAAAAAAAAA==",
+              "ViewState": "AgIAABIAAAAAAAAAAAAAAAMAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
               "WhenOpened": "2026-02-07T02:58:56.199Z",
               "EditorCaption": ""
@@ -64,8 +64,7 @@
               "RelativeToolTip": "GreivinWen-Assignment2\\Inventory.h",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
-              "WhenOpened": "2026-02-07T02:58:48.285Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-02-07T02:58:48.285Z"
             },
             {
               "$type": "Document",
@@ -77,8 +76,7 @@
               "RelativeToolTip": "GreivinWen-Assignment2\\Item.h",
               "ViewState": "AgIAABIAAAAAAAAAAAAAADEAAAACAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
-              "WhenOpened": "2026-02-07T02:58:49.462Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-02-07T02:58:49.462Z"
             }
           ]
         }

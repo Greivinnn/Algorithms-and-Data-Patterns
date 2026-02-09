@@ -26,6 +26,9 @@ public:
 	}
 
 	Vector(const Vector& other)
+		: mValues(nullptr)
+		, mCapacity(0)
+		, mSize(0)
 	{
 		if (other.mCapacity > 0)
 		{
@@ -37,7 +40,6 @@ public:
 		}
 		mSize = other.mSize;
 		mCapacity = other.mCapacity;
-		return *this;
 	}
 	Vector(Vector&& other)
 	{
@@ -102,7 +104,7 @@ public:
 				mValues[i].~T();
 			}
 		}
-		else if (size < mSize)
+		else if (size > mSize)
 		{
 			std::size_t newCapacity = std::max(size, mCapacity * 2);
 			Reserve(newCapacity);
@@ -154,7 +156,7 @@ public:
 	//judt adding to have a functional queue, not constastly a vector
 	void PopFront()
 	{
-		for(std::size_t i = 0; i < mSize - 1; ++i)
+		for (std::size_t i = 0; i < mSize - 1; ++i)
 		{
 			T tmp = mValues[i];
 			mValues[i] = mValues[i + 1];
@@ -170,7 +172,7 @@ public:
 		assert(index < mSize);
 		return mValues[index];
 	}
-	const T& operator[] (std::size_t index) const 
+	const T& operator[] (std::size_t index) const
 	{
 		return mValues[index];
 	}
