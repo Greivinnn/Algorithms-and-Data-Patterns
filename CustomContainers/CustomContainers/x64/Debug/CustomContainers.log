@@ -1,81 +1,17 @@
 ﻿  CustomContainers.cpp
 C:\LASALLE SECOND YEAR\Algorithms-and-Data-Patterns\CustomContainers\CustomContainers\CustomContainers.cpp(5,10): warning C4067: unexpected tokens following preprocessor directive - expected a newline
-C:\LASALLE SECOND YEAR\Algorithms-and-Data-Patterns\CustomContainers\CustomContainers\CustomContainers.cpp(70,16): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
-C:\LASALLE SECOND YEAR\Algorithms-and-Data-Patterns\CustomContainers\CustomContainers\CustomContainers.cpp(78,16): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
-C:\LASALLE SECOND YEAR\Algorithms-and-Data-Patterns\CustomContainers\CustomContainers\CustomContainers.cpp(183,20): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
-C:\LASALLE SECOND YEAR\Algorithms-and-Data-Patterns\CustomContainers\CustomContainers\CustomContainers.cpp(199,20): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
-C:\LASALLE SECOND YEAR\Algorithms-and-Data-Patterns\CustomContainers\CustomContainers\CustomContainers.cpp(669,15): warning C4244: 'argument': conversion from 'time_t' to 'unsigned int', possible loss of data
-C:\LASALLE SECOND YEAR\Algorithms-and-Data-Patterns\CustomContainers\CustomContainers\Graph.h(42,30): warning C4267: 'return': conversion from 'size_t' to 'int', possible loss of data
+C:\LASALLE SECOND YEAR\Algorithms-and-Data-Patterns\CustomContainers\CustomContainers\Globals.h(45,89): error C2572: 'Globals::BubbleSort': redefinition of default argument: parameter 1
   (compiling source file 'CustomContainers.cpp')
-      C:\LASALLE SECOND YEAR\Algorithms-and-Data-Patterns\CustomContainers\CustomContainers\Graph.h(42,30):
-      the template instantiation context (the oldest one first) is
-          C:\LASALLE SECOND YEAR\Algorithms-and-Data-Patterns\CustomContainers\CustomContainers\CustomContainers.cpp(280,17):
-          see reference to class template instantiation 'Graph<Tile>' being compiled
-          C:\LASALLE SECOND YEAR\Algorithms-and-Data-Patterns\CustomContainers\CustomContainers\Graph.h(34,9):
-          while compiling class template member function 'int Graph<Tile>::AddItem(const T *)'
-          with
-          [
-              T=Tile
-          ]
-              C:\LASALLE SECOND YEAR\Algorithms-and-Data-Patterns\CustomContainers\CustomContainers\CustomContainers.cpp(313,29):
-              see the first reference to 'Graph<Tile>::AddItem' in 'TileMapSearch'
+      C:\LASALLE SECOND YEAR\Algorithms-and-Data-Patterns\CustomContainers\CustomContainers\Globals.h(27,7):
+      see declaration of 'Globals::BubbleSort'
   
-C:\LASALLE SECOND YEAR\Algorithms-and-Data-Patterns\CustomContainers\CustomContainers\UnorderedMap.h(183,22): error C2665: 'std::vector<UnorderedMap<std::string,int>::KeyValuePair *,std::allocator<UnorderedMap<std::string,int>::KeyValuePair *>>::push_back': no overloaded function could convert all the argument types
+C:\LASALLE SECOND YEAR\Algorithms-and-Data-Patterns\CustomContainers\CustomContainers\Globals.h(45,7): error C2995: 'void Globals::BubbleSort(Vector<T> &,std::function<bool(const T &,const T &)> &)': function template has already been defined
   (compiling source file 'CustomContainers.cpp')
-      C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\vector(936,23):
-      could be 'void std::vector<UnorderedMap<std::string,int>::KeyValuePair *,std::allocator<UnorderedMap<std::string,int>::KeyValuePair *>>::push_back(_Ty &&)'
-          with
-          [
-              _Ty=UnorderedMap<std::string,int>::KeyValuePair *
-          ]
-          C:\LASALLE SECOND YEAR\Algorithms-and-Data-Patterns\CustomContainers\CustomContainers\UnorderedMap.h(183,22):
-          'void std::vector<UnorderedMap<std::string,int>::KeyValuePair *,std::allocator<UnorderedMap<std::string,int>::KeyValuePair *>>::push_back(_Ty &&)': cannot convert argument 1 from 'const UnorderedMap<std::string,int>::KeyValuePair *' to '_Ty &&'
-          with
-          [
-              _Ty=UnorderedMap<std::string,int>::KeyValuePair *
-          ]
-              C:\LASALLE SECOND YEAR\Algorithms-and-Data-Patterns\CustomContainers\CustomContainers\UnorderedMap.h(183,32):
-              Conversion loses qualifiers
-      C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\vector(932,23):
-      or       'void std::vector<UnorderedMap<std::string,int>::KeyValuePair *,std::allocator<UnorderedMap<std::string,int>::KeyValuePair *>>::push_back(const _Ty &)'
-          with
-          [
-              _Ty=UnorderedMap<std::string,int>::KeyValuePair *
-          ]
-          C:\LASALLE SECOND YEAR\Algorithms-and-Data-Patterns\CustomContainers\CustomContainers\UnorderedMap.h(183,22):
-          'void std::vector<UnorderedMap<std::string,int>::KeyValuePair *,std::allocator<UnorderedMap<std::string,int>::KeyValuePair *>>::push_back(const _Ty &)': cannot convert argument 1 from 'const UnorderedMap<std::string,int>::KeyValuePair *' to 'const _Ty &'
-          with
-          [
-              _Ty=UnorderedMap<std::string,int>::KeyValuePair *
-          ]
-              C:\LASALLE SECOND YEAR\Algorithms-and-Data-Patterns\CustomContainers\CustomContainers\UnorderedMap.h(183,32):
-              Conversion loses qualifiers
-      C:\LASALLE SECOND YEAR\Algorithms-and-Data-Patterns\CustomContainers\CustomContainers\UnorderedMap.h(183,22):
-      while trying to match the argument list '(const UnorderedMap<std::string,int>::KeyValuePair *)'
-      C:\LASALLE SECOND YEAR\Algorithms-and-Data-Patterns\CustomContainers\CustomContainers\UnorderedMap.h(183,22):
-      the template instantiation context (the oldest one first) is
-          C:\LASALLE SECOND YEAR\Algorithms-and-Data-Patterns\CustomContainers\CustomContainers\CustomContainers.cpp(715,36):
-          see reference to class template instantiation 'UnorderedMap<std::string,int>' being compiled
-          C:\LASALLE SECOND YEAR\Algorithms-and-Data-Patterns\CustomContainers\CustomContainers\UnorderedMap.h(172,8):
-          while compiling class template member function 'void UnorderedMap<std::string,int>::Rehash(void)'
-              C:\LASALLE SECOND YEAR\Algorithms-and-Data-Patterns\CustomContainers\CustomContainers\UnorderedMap.h(51,10):
-              see the first reference to 'UnorderedMap<std::string,int>::Rehash' in 'UnorderedMap<std::string,int>::Insert'
-              C:\LASALLE SECOND YEAR\Algorithms-and-Data-Patterns\CustomContainers\CustomContainers\CustomContainers.cpp(716,20):
-              see the first reference to 'UnorderedMap<std::string,int>::Insert' in 'main'
+      C:\LASALLE SECOND YEAR\Algorithms-and-Data-Patterns\CustomContainers\CustomContainers\Globals.h(27,7):
+      see declaration of 'Globals::BubbleSort'
   
-C:\LASALLE SECOND YEAR\Algorithms-and-Data-Patterns\CustomContainers\CustomContainers\UnorderedMap.h(185,12): error C2662: 'void std::vector<UnorderedMap<std::string,int>::KeyValuePair *,std::allocator<UnorderedMap<std::string,int>::KeyValuePair *>>::clear(void) noexcept': cannot convert 'this' pointer from 'const std::vector<UnorderedMap<std::string,int>::KeyValuePair *,std::allocator<UnorderedMap<std::string,int>::KeyValuePair *>>' to 'std::vector<UnorderedMap<std::string,int>::KeyValuePair *,std::allocator<UnorderedMap<std::string,int>::KeyValuePair *>> &'
-  (compiling source file 'CustomContainers.cpp')
-      C:\LASALLE SECOND YEAR\Algorithms-and-Data-Patterns\CustomContainers\CustomContainers\UnorderedMap.h(185,5):
-      Conversion loses qualifiers
-      C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\vector(1807,23):
-      see declaration of 'std::vector<UnorderedMap<std::string,int>::KeyValuePair *,std::allocator<UnorderedMap<std::string,int>::KeyValuePair *>>::clear'
-      C:\LASALLE SECOND YEAR\Algorithms-and-Data-Patterns\CustomContainers\CustomContainers\UnorderedMap.h(185,12):
-      while trying to match the argument list '()'
-  
-C:\LASALLE SECOND YEAR\Algorithms-and-Data-Patterns\CustomContainers\CustomContainers\UnorderedMap.h(188,13): error C2660: 'swab': function does not take 1 arguments
-  (compiling source file 'CustomContainers.cpp')
-      C:\Program Files (x86)\Windows Kits\10\Include\10.0.26100.0\ucrt\stdlib.h(1331,27):
-      see declaration of 'swab'
-      C:\LASALLE SECOND YEAR\Algorithms-and-Data-Patterns\CustomContainers\CustomContainers\UnorderedMap.h(188,13):
-      while trying to match the argument list '(std::vector<std::vector<UnorderedMap<std::string,int>::KeyValuePair *,std::allocator<UnorderedMap<std::string,int>::KeyValuePair *>>,std::allocator<std::vector<UnorderedMap<std::string,int>::KeyValuePair *,std::allocator<UnorderedMap<std::string,int>::KeyValuePair *>>>>)'
-  
+C:\LASALLE SECOND YEAR\Algorithms-and-Data-Patterns\CustomContainers\CustomContainers\CustomContainers.cpp(71,16): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
+C:\LASALLE SECOND YEAR\Algorithms-and-Data-Patterns\CustomContainers\CustomContainers\CustomContainers.cpp(79,16): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
+C:\LASALLE SECOND YEAR\Algorithms-and-Data-Patterns\CustomContainers\CustomContainers\CustomContainers.cpp(184,20): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
+C:\LASALLE SECOND YEAR\Algorithms-and-Data-Patterns\CustomContainers\CustomContainers\CustomContainers.cpp(200,20): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
+C:\LASALLE SECOND YEAR\Algorithms-and-Data-Patterns\CustomContainers\CustomContainers\CustomContainers.cpp(670,15): warning C4244: 'argument': conversion from 'time_t' to 'unsigned int', possible loss of data

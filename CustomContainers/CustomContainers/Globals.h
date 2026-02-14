@@ -32,9 +32,9 @@ namespace Globals
 			std::size_t minIndex = i;
 			for (std::size_t j = 0; j < size - i - 1; ++j)
 			{
-				if (sortFunc != nullptr && sortFunc(values[j], values[j + 1] || values[j] > values[j + 1])
+				if ((sortFunc != nullptr && sortFunc(values[j], values[j + 1] || values[j] > values[j + 1])))
 				{
-					Swap(values[j], values[j + 1])
+					Swap(values[j], values[j + 1]);
 				}
 				
 			}
@@ -42,7 +42,7 @@ namespace Globals
 	}
 
 	template<typename T>
-	void BubbleSort(Vector<T>& values, std::function<bool(const T&, const T&)>& sortFunc = nullptr)
+	void BubbleSort(Vector<T>& values, std::function<bool(const T&, const T&)>& sortFunc = nullptr) 
 	{
 		std::size_t size = values.Size();
 		for (std::size_t i = 0; i < size; ++i)
