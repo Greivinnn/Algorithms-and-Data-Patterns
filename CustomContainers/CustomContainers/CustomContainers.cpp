@@ -9,6 +9,7 @@
 #include "Vector3.h"
 #include <cstdlib> 
 #include <ctime>   
+#include "UnorderedMap.h"
 
 struct Item
 {
@@ -555,7 +556,7 @@ public:
     {
         return mLastSearchResults;
     }
-
+	// builds the KDTree, needs to be called after all items have been added
     void BuildTree()
     {
         mKDTree.BuildTree();
@@ -687,28 +688,37 @@ void CreateRandomPickups(PickupManager& manager, int count)
 
 int main()
 {
-    PickupManager manager;
-    Vector3 playerPos(50.0f, 50.0f, 50.0f);
-    float attractRange = 10.0f;
-    std::cout << "100 pickups created\n\n";
-    CreateRandomPickups(manager, 100);
-    manager.BuildTree();
-    manager.BuildTree();
-    
-    std::cout << "Player Position: (" << playerPos.x << ", " << playerPos.y << ", " << playerPos.z << ")\n";
-    std::cout << "Attract Range: " << attractRange << "\n\n";
+    //PickupManager manager;
+    //Vector3 playerPos(50.0f, 50.0f, 50.0f);
+    //float attractRange = 10.0f;
+    //std::cout << "100 pickups created\n\n";
+    //CreateRandomPickups(manager, 100);
+    //manager.BuildTree();
+    //manager.BuildTree();
+    //
+    //std::cout << "Player Position: (" << playerPos.x << ", " << playerPos.y << ", " << playerPos.z << ")\n";
+    //std::cout << "Attract Range: " << attractRange << "\n\n";
 
-    // C
-    PrintPickupsInAttractRange(manager, playerPos, attractRange);
-    std::cout << "\n\n";
+    //// C
+    //PrintPickupsInAttractRange(manager, playerPos, attractRange);
+    //std::cout << "\n\n";
 
-    // D
-    float healthSearchRange = 50.0f;
-    PrintHealthPickupsInRange(manager, playerPos, healthSearchRange);
-    std::cout << "\n\n";
+    //// D
+    //float healthSearchRange = 50.0f;
+    //PrintHealthPickupsInRange(manager, playerPos, healthSearchRange);
+    //std::cout << "\n\n";
 
-    // E
-    PrintClosestPickup(manager, playerPos);
-    std::cout << "\n";
+    //// E
+    //PrintClosestPickup(manager, playerPos);
+    //std::cout << "\n";
+
+    UnorderedMap<std::string, int> myCarPrices;
+	myCarPrices.Insert("Toyota", 20000);
+	myCarPrices.Insert("BMW", 50000);   
+	myCarPrices["Dodge"] = 30000; 
+
+	std::cout << "Toyota Price: " << myCarPrices["Toyota"] << "\n";
+	std::cout << "BMW Price: " << myCarPrices["BMW"] << "\n";
+	std::cout << "Dodge Price: " << myCarPrices["Dodge"] << "\n";
 }
 
