@@ -1,17 +1,51 @@
 ﻿  CustomContainers.cpp
 C:\LASALLE SECOND YEAR\Algorithms-and-Data-Patterns\CustomContainers\CustomContainers\CustomContainers.cpp(5,10): warning C4067: unexpected tokens following preprocessor directive - expected a newline
-C:\LASALLE SECOND YEAR\Algorithms-and-Data-Patterns\CustomContainers\CustomContainers\Globals.h(45,89): error C2572: 'Globals::BubbleSort': redefinition of default argument: parameter 1
+C:\LASALLE SECOND YEAR\Algorithms-and-Data-Patterns\CustomContainers\CustomContainers\CustomContainers.cpp(72,16): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
+C:\LASALLE SECOND YEAR\Algorithms-and-Data-Patterns\CustomContainers\CustomContainers\CustomContainers.cpp(80,16): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
+C:\LASALLE SECOND YEAR\Algorithms-and-Data-Patterns\CustomContainers\CustomContainers\CustomContainers.cpp(185,20): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
+C:\LASALLE SECOND YEAR\Algorithms-and-Data-Patterns\CustomContainers\CustomContainers\CustomContainers.cpp(201,20): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
+C:\LASALLE SECOND YEAR\Algorithms-and-Data-Patterns\CustomContainers\CustomContainers\CustomContainers.cpp(671,15): warning C4244: 'argument': conversion from 'time_t' to 'unsigned int', possible loss of data
+C:\LASALLE SECOND YEAR\Algorithms-and-Data-Patterns\CustomContainers\CustomContainers\Map.h(55,13): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
   (compiling source file 'CustomContainers.cpp')
-      C:\LASALLE SECOND YEAR\Algorithms-and-Data-Patterns\CustomContainers\CustomContainers\Globals.h(27,7):
-      see declaration of 'Globals::BubbleSort'
+      C:\LASALLE SECOND YEAR\Algorithms-and-Data-Patterns\CustomContainers\CustomContainers\Map.h(55,13):
+      the template instantiation context (the oldest one first) is
+          C:\LASALLE SECOND YEAR\Algorithms-and-Data-Patterns\CustomContainers\CustomContainers\CustomContainers.cpp(693,19):
+          see reference to class template instantiation 'Map<int,int>' being compiled
+          C:\LASALLE SECOND YEAR\Algorithms-and-Data-Patterns\CustomContainers\CustomContainers\Map.h(53,7):
+          while compiling class template member function 'bool Map<int,int>::Remove(const KeyType &)'
+          with
+          [
+              KeyType=int
+          ]
+              C:\LASALLE SECOND YEAR\Algorithms-and-Data-Patterns\CustomContainers\CustomContainers\CustomContainers.cpp(712,17):
+              see the first reference to 'Map<int,int>::Remove' in 'main'
   
-C:\LASALLE SECOND YEAR\Algorithms-and-Data-Patterns\CustomContainers\CustomContainers\Globals.h(45,7): error C2995: 'void Globals::BubbleSort(Vector<T> &,std::function<bool(const T &,const T &)> &)': function template has already been defined
+C:\LASALLE SECOND YEAR\Algorithms-and-Data-Patterns\CustomContainers\CustomContainers\Graph.h(42,30): warning C4267: 'return': conversion from 'size_t' to 'int', possible loss of data
   (compiling source file 'CustomContainers.cpp')
-      C:\LASALLE SECOND YEAR\Algorithms-and-Data-Patterns\CustomContainers\CustomContainers\Globals.h(27,7):
-      see declaration of 'Globals::BubbleSort'
+      C:\LASALLE SECOND YEAR\Algorithms-and-Data-Patterns\CustomContainers\CustomContainers\Graph.h(42,30):
+      the template instantiation context (the oldest one first) is
+          C:\LASALLE SECOND YEAR\Algorithms-and-Data-Patterns\CustomContainers\CustomContainers\CustomContainers.cpp(282,17):
+          see reference to class template instantiation 'Graph<Tile>' being compiled
+          C:\LASALLE SECOND YEAR\Algorithms-and-Data-Patterns\CustomContainers\CustomContainers\Graph.h(34,9):
+          while compiling class template member function 'int Graph<Tile>::AddItem(const T *)'
+          with
+          [
+              T=Tile
+          ]
+              C:\LASALLE SECOND YEAR\Algorithms-and-Data-Patterns\CustomContainers\CustomContainers\CustomContainers.cpp(315,29):
+              see the first reference to 'Graph<Tile>::AddItem' in 'TileMapSearch'
   
-C:\LASALLE SECOND YEAR\Algorithms-and-Data-Patterns\CustomContainers\CustomContainers\CustomContainers.cpp(71,16): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
-C:\LASALLE SECOND YEAR\Algorithms-and-Data-Patterns\CustomContainers\CustomContainers\CustomContainers.cpp(79,16): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
-C:\LASALLE SECOND YEAR\Algorithms-and-Data-Patterns\CustomContainers\CustomContainers\CustomContainers.cpp(184,20): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
-C:\LASALLE SECOND YEAR\Algorithms-and-Data-Patterns\CustomContainers\CustomContainers\CustomContainers.cpp(200,20): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
-C:\LASALLE SECOND YEAR\Algorithms-and-Data-Patterns\CustomContainers\CustomContainers\CustomContainers.cpp(670,15): warning C4244: 'argument': conversion from 'time_t' to 'unsigned int', possible loss of data
+C:\LASALLE SECOND YEAR\Algorithms-and-Data-Patterns\CustomContainers\CustomContainers\KDTree.h(114,20): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
+  (compiling source file 'CustomContainers.cpp')
+      C:\LASALLE SECOND YEAR\Algorithms-and-Data-Patterns\CustomContainers\CustomContainers\KDTree.h(114,20):
+      the template instantiation context (the oldest one first) is
+          C:\LASALLE SECOND YEAR\Algorithms-and-Data-Patterns\CustomContainers\CustomContainers\CustomContainers.cpp(569,22):
+          see reference to class template instantiation 'KDTree<float,3>' being compiled
+          C:\LASALLE SECOND YEAR\Algorithms-and-Data-Patterns\CustomContainers\CustomContainers\KDTree.h(101,13):
+          while compiling class template member function 'KDTree<float,3>::KDNode *KDTree<float,3>::BuildTree(Vector<KDTree<float,3>::KDNode *> &,int)'
+              C:\LASALLE SECOND YEAR\Algorithms-and-Data-Patterns\CustomContainers\CustomContainers\KDTree.h(67,15):
+              see the first reference to 'KDTree<float,3>::BuildTree' in 'KDTree<float,3>::BuildTree'
+              C:\LASALLE SECOND YEAR\Algorithms-and-Data-Patterns\CustomContainers\CustomContainers\CustomContainers.cpp(564,26):
+              see the first reference to 'KDTree<float,3>::BuildTree' in 'PickupManager::BuildTree'
+  
+  CustomContainers.vcxproj -> C:\LASALLE SECOND YEAR\Algorithms-and-Data-Patterns\CustomContainers\x64\Debug\CustomContainers.exe

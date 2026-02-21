@@ -11,6 +11,7 @@
 #include <ctime>   
 #include "UnorderedMap.h"
 #include "Globals.h"
+#include "Map.h"
 
 struct Item
 {
@@ -689,37 +690,35 @@ void CreateRandomPickups(PickupManager& manager, int count)
 
 int main()
 {
-    //PickupManager manager;
-    //Vector3 playerPos(50.0f, 50.0f, 50.0f);
-    //float attractRange = 10.0f;
-    //std::cout << "100 pickups created\n\n";
-    //CreateRandomPickups(manager, 100);
-    //manager.BuildTree();
-    //manager.BuildTree();
-    //
-    //std::cout << "Player Position: (" << playerPos.x << ", " << playerPos.y << ", " << playerPos.z << ")\n";
-    //std::cout << "Attract Range: " << attractRange << "\n\n";
+    Map<int, int> myMap;
+    for(int i = 0; i < 10; ++i)
+    {
+		int value = rand() % 1000; // random value between 0 and 999
+        myMap.Insert(i, value);
+		std::cout << value << " ";
+	}
+	std::cout << "\nHas key 3" << myMap.Has(3) << "\n";
+	std::cout << "\nHas key 30" << myMap.Has(30) << "\n";
 
-    //// C
-    //PrintPickupsInAttractRange(manager, playerPos, attractRange);
-    //std::cout << "\n\n";
+    Vector<int> allKeys;
+	myMap.ObtainKeys(allKeys);
+    std::cout << "Obtain all keys:\n";
+    for(std::size_t i = 0; i < allKeys.Size(); ++i)
+    {
+		std::cout << allKeys[i] << " ";
+	}
+	std::cout << "\n Value with key 7" << myMap[7] << "\n";
 
-    //// D
-    //float healthSearchRange = 50.0f;
-    //PrintHealthPickupsInRange(manager, playerPos, healthSearchRange);
-    //std::cout << "\n\n";
+    myMap.Remove(6);
 
-    //// E
-    //PrintClosestPickup(manager, playerPos);
-    //std::cout << "\n";
+	allKeys.Clear();    
+    myMap.ObtainKeys(allKeys);
+    std::cout << "Obtain all keys after removing key 6:\n";
+    for(std::size_t i = 0; i < allKeys.Size(); ++i)
+    {
+        std::cout << allKeys[i] << " ";
+	}
+	myMap.Clear();
 
-    UnorderedMap<std::string, int> myCarPrices;
-	myCarPrices.Insert("Toyota", 20000);
-	myCarPrices.Insert("BMW", 50000);   
-	myCarPrices["Dodge"] = 30000; 
-
-	std::cout << "Toyota Price: " << myCarPrices["Toyota"] << "\n";
-	std::cout << "BMW Price: " << myCarPrices["BMW"] << "\n";
-	std::cout << "Dodge Price: " << myCarPrices["Dodge"] << "\n";
 }
 
