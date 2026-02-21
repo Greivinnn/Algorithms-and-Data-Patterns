@@ -688,37 +688,296 @@ void CreateRandomPickups(PickupManager& manager, int count)
     }
 }
 
-int main()
+void MapsFunctions()
 {
     Map<int, int> myMap;
-    for(int i = 0; i < 10; ++i)
+    for (int i = 0; i < 10; ++i)
     {
-		int value = rand() % 1000; // random value between 0 and 999
+        int value = rand() % 1000; // random value between 0 and 999
         myMap.Insert(i, value);
-		std::cout << value << " ";
-	}
-	std::cout << "\nHas key 3" << myMap.Has(3) << "\n";
-	std::cout << "\nHas key 30" << myMap.Has(30) << "\n";
+        std::cout << value << " ";
+    }
+    std::cout << "\nHas key 3" << myMap.Has(3) << "\n";
+    std::cout << "\nHas key 30" << myMap.Has(30) << "\n";
 
     Vector<int> allKeys;
-	myMap.ObtainKeys(allKeys);
+    myMap.ObtainKeys(allKeys);
     std::cout << "Obtain all keys:\n";
-    for(std::size_t i = 0; i < allKeys.Size(); ++i)
+    for (std::size_t i = 0; i < allKeys.Size(); ++i)
     {
-		std::cout << allKeys[i] << " ";
-	}
-	std::cout << "\n Value with key 7" << myMap[7] << "\n";
+        std::cout << allKeys[i] << " ";
+    }
+    std::cout << "\n Value with key 7" << myMap[7] << "\n";
 
     myMap.Remove(6);
 
-	allKeys.Clear();    
+    allKeys.Clear();
     myMap.ObtainKeys(allKeys);
     std::cout << "Obtain all keys after removing key 6:\n";
-    for(std::size_t i = 0; i < allKeys.Size(); ++i)
+    for (std::size_t i = 0; i < allKeys.Size(); ++i)
     {
         std::cout << allKeys[i] << " ";
+    }
+    myMap.Clear();
+}
+
+// Homework assignment 4
+void Assignment4()
+{
+    class Texture
+    {
+    public:
+        Texture(const std::string& path)
+            : filePath(path)
+        {
+        }
+        Texture()
+            : filePath("default_texture.png")
+        {
+        }
+        void Print()
+        {
+            std::cout << "Rendering: " << filePath << "\n";
+        }
+    private:
+        std::string filePath;
+    };
+
+    class TextureManager
+    {
+    public:
+        static TextureManager* Get()
+        {
+            static TextureManager instance;
+            return &instance;
+        }
+        std::size_t LoadTexture(const std::string& filePath)
+        {
+            auto uniqueKey = Globals::HashFunction(filePath);
+            mTextures.Insert(uniqueKey, Texture(filePath));
+            return uniqueKey;
+        }
+        Texture* GetTexture(std::size_t key)
+        {
+            return &mTextures[key];
+        }
+    private:
+        UnorderedMap<std::size_t, Texture> mTextures;
+    };
+
+    class Entity
+    {
+    public:
+        void Initialize(const std::string& textureFilePath)
+        {
+            mTextureId = TextureManager::Get()->LoadTexture(textureFilePath);
+            mPosition = Vector2(0.0f, 0.0f);
+        }
+        void Update()
+        {
+            int dx = rand() % 20;
+            int dy = rand() % 20;
+            mPosition = Vector2(dx, dy);
+        }
+        Vector2 GetPosition() const
+        {
+            return mPosition;
+        }
+        void Render()
+        {
+            // Get the texture from the texture manager using our stored ID
+            Texture* texture = TextureManager::Get()->GetTexture(mTextureId);
+            if (texture)
+            {
+                texture->Print();
+            }
+
+            // Print the entity's position
+            std::cout << "Position: (" << mPosition.x << ", " << mPosition.y << ")\n";
+        }
+    private:
+        std::size_t mTextureId;
+        Vector2 mPosition;
+    };
+
+    // main code
+    srand(time(0));
+    Vector<Entity> myEntities;
+    Entity playerOne;
+    Entity playerTwo;
+    std::string enemyTexturePath = "enemy1234";
+    playerOne.Initialize("player1");
+    myEntities.PushBack(playerOne);
+    playerTwo.Initialize("player2");
+    myEntities.PushBack(playerTwo);
+
+    for (int i = 0; i < 20; ++i)
+    {
+        Entity enemy;
+        enemy.Initialize(enemyTexturePath);
+        myEntities.PushBack(enemy);
+    }
+
+    for (std::size_t i = 0; i < myEntities.Size(); ++i)
+    {
+        myEntities[i].Update();
+    }
+
+    // Sort by closest to origin
+    std::function<bool(const Entity&, const Entity&)> sortByDistance = [](const Entity& a, const Entity& b)
+        {
+            Vector2 posA = a.GetPosition();
+            Vector2 posB = b.GetPosition();
+            float distA = (posA.x * posA.x) + (posA.y * posA.y);
+            float distB = (posB.x * posB.x) + (posB.y * posB.y);
+            return distA > distB;
+        };
+
+    Globals::BubbleSort(myEntities, sortByDistance);
+
+    for (std::size_t i = 0; i < myEntities.Size(); ++i)
+    {
+        myEntities[i].Render();
+        std::cout << "\n";
+    }
+
+    for (int i = 0; i < 20; ++i)
+    {
+        Entity enemy;
+        enemy.Initialize(enemyTexturePath);
+        myEntities.PushBack(enemy);
+    }
+
+    for (std::size_t i = 0; i < myEntities.Size(); ++i)
+    {
+        myEntities[i].Update();
+    }
+
+    // Sort by closest to origin
+    std::function<bool(const Entity&, const Entity&)> sortByDistance2 = [](const Entity& a, const Entity& b)
+        {
+            Vector2 posA = a.GetPosition();
+            Vector2 posB = b.GetPosition();
+            float distA = (posA.x * posA.x) + (posA.y * posA.y);
+            float distB = (posB.x * posB.x) + (posB.y * posB.y);
+            return distA > distB;
+        };
+
+    Globals::BubbleSort(myEntities, sortByDistance2);
+
+    for (int i = 0; i < 20; ++i)
+    {
+        Entity enemy;
+        enemy.Initialize(enemyTexturePath);
+        myEntities.PushBack(enemy);
+    }
+
+    for (std::size_t i = 0; i < myEntities.Size(); ++i)
+    {
+        myEntities[i].Update();
+    }
+
+    // Sort by closest to origin
+    std::function<bool(const Entity&, const Entity&)> sortByDistance3 = [](const Entity& a, const Entity& b)
+        {
+            Vector2 posA = a.GetPosition();
+            Vector2 posB = b.GetPosition();
+            float distA = (posA.x * posA.x) + (posA.y * posA.y);
+            float distB = (posB.x * posB.x) + (posB.y * posB.y);
+            return distA > distB;
+        };
+
+    Globals::BubbleSort(myEntities, sortByDistance3);
+
+    for (int i = 0; i < 20; ++i)
+    {
+        Entity enemy;
+        enemy.Initialize(enemyTexturePath);
+        myEntities.PushBack(enemy);
+    }
+
+    for (std::size_t i = 0; i < myEntities.Size(); ++i)
+    {
+        myEntities[i].Update();
+    }
+
+    // Sort by closest to origin
+    std::function<bool(const Entity&, const Entity&)> sortByDistance4 = [](const Entity& a, const Entity& b)
+        {
+            Vector2 posA = a.GetPosition();
+            Vector2 posB = b.GetPosition();
+            float distA = (posA.x * posA.x) + (posA.y * posA.y);
+            float distB = (posB.x * posB.x) + (posB.y * posB.y);
+            return distA > distB;
+        };
+
+    Globals::BubbleSort(myEntities, sortByDistance4);
+
+    for (std::size_t i = 0; i < myEntities.Size(); ++i)
+    {
+        myEntities[i].Render();
+        std::cout << "\n";
+    }
+
+}
+
+// Homework assignment 5
+class KeyItem
+{
+public:
+    void Add(int amount)
+    {
+		mCount += amount;
+    }
+    void Consume(int amount)
+    {
+        mCount -= amount;
+    }
+    int GetCount() const
+    {
+        return mCount;
+	}   
+    void Print() const
+    {
+		std::cout << mName << ": " << mCount << "\n";
+    }
+private:
+    std::string mName;
+    int mCount;
+};
+
+class Inventory
+{
+public:
+    Inventory* Get()
+    {
+        static Inventory instance;
+        return &instance;
 	}
-	myMap.Clear();
+    void PickupKey(const std::string& keyName, int amount)
+    {
+        if(mKeys.Has(keyName))
+        {
+			std::cout << "This key already exists, adding " << amount << " to it.\n";
+			mKeys[keyName].Add(amount);
+        }
+        else
+        {
+            KeyItem newKey;
+            newKey.Add(amount);
+            mKeys.Insert(keyName, newKey);
+		}
+	}
+    void UseKey(const std::string& keyName, int amount)
+    {
+       
+    }
+private:
+    Map<std::string, const KeyItem&> mKeys;
+};
+
+int main()
+{
 
 }
 
