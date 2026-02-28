@@ -1,18 +1,1 @@
-﻿  CustomContainers.cpp
-C:\LASALLE SECOND YEAR\Algorithms-and-Data-Patterns\CustomContainers\CustomContainers\CustomContainers.cpp(5,10): warning C4067: unexpected tokens following preprocessor directive - expected a newline
-C:\LASALLE SECOND YEAR\Algorithms-and-Data-Patterns\CustomContainers\CustomContainers\CustomContainers.cpp(72,16): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
-C:\LASALLE SECOND YEAR\Algorithms-and-Data-Patterns\CustomContainers\CustomContainers\CustomContainers.cpp(80,16): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
-C:\LASALLE SECOND YEAR\Algorithms-and-Data-Patterns\CustomContainers\CustomContainers\CustomContainers.cpp(185,20): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
-C:\LASALLE SECOND YEAR\Algorithms-and-Data-Patterns\CustomContainers\CustomContainers\CustomContainers.cpp(201,20): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
-C:\LASALLE SECOND YEAR\Algorithms-and-Data-Patterns\CustomContainers\CustomContainers\CustomContainers.cpp(671,15): warning C4244: 'argument': conversion from 'time_t' to 'unsigned int', possible loss of data
-C:\LASALLE SECOND YEAR\Algorithms-and-Data-Patterns\CustomContainers\CustomContainers\CustomContainers.cpp(780,37): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
-C:\LASALLE SECOND YEAR\Algorithms-and-Data-Patterns\CustomContainers\CustomContainers\CustomContainers.cpp(780,33): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
-C:\LASALLE SECOND YEAR\Algorithms-and-Data-Patterns\CustomContainers\CustomContainers\CustomContainers.cpp(804,15): warning C4244: 'argument': conversion from 'time_t' to 'unsigned int', possible loss of data
-C:\LASALLE SECOND YEAR\Algorithms-and-Data-Patterns\CustomContainers\CustomContainers\CustomContainers.cpp(962,19): error C2662: 'void KeyItem::Add(int)': cannot convert 'this' pointer from 'const KeyItem' to 'KeyItem &'
-      C:\LASALLE SECOND YEAR\Algorithms-and-Data-Patterns\CustomContainers\CustomContainers\CustomContainers.cpp(962,17):
-      Conversion loses qualifiers
-      C:\LASALLE SECOND YEAR\Algorithms-and-Data-Patterns\CustomContainers\CustomContainers\CustomContainers.cpp(928,10):
-      see declaration of 'KeyItem::Add'
-      C:\LASALLE SECOND YEAR\Algorithms-and-Data-Patterns\CustomContainers\CustomContainers\CustomContainers.cpp(962,19):
-      while trying to match the argument list '(int)'
-  
+﻿

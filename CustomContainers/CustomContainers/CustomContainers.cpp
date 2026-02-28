@@ -721,6 +721,32 @@ void MapsFunctions()
     myMap.Clear();
 }
 
+void GloabalSorting()
+{
+    std::cout << "Custom Sorting:\n";
+    Vector<int> myNumbers;
+    int maxNumbers = 20;
+
+    for (int i = 0; i < maxNumbers; ++i)
+    {
+        int value = 1 + (rand() % 100);
+        myNumbers.PushBack(value);
+        std::cout << value << " ";
+    }
+    std::cout << "\n";
+    //Globals::InsertionSort(myNumbers.Begin(), myNumbers.End());
+    //Globals::MergeSort(myNumbers.Begin(), myNumbers.End());
+    //Globals::QuickSort(myNumbers.Begin(), myNumbers.End());
+    //Globals::BucketSort(myNumbers.Begin(), myNumbers.End());
+   //Globals::HeapSort(myNumbers.Begin(), myNumbers.End());
+   // Globals::IntroSort(myNumbers.Begin(), myNumbers.End());
+    for (int i = 0; i < myNumbers.Size(); ++i)
+    {
+        std::cout << myNumbers[i] << " ";
+    }
+    std::cout << "\n\n";
+}
+
 // Homework assignment 4
 void Assignment4()
 {
@@ -943,7 +969,7 @@ public:
     }
 private:
     std::string mName;
-    int mCount;
+    int mCount = 0;
 };
 
 class Inventory
@@ -959,7 +985,7 @@ public:
         if(mKeys.Has(keyName))
         {
 			std::cout << "This key already exists, adding " << amount << " to it.\n";
-			mKeys[keyName].Add(amount);
+            mKeys[keyName].Add(amount);
         }
         else
         {
@@ -970,14 +996,139 @@ public:
 	}
     void UseKey(const std::string& keyName, int amount)
     {
-       
+        if (mKeys.Has(keyName))
+        {
+            mKeys[keyName].Consume(amount);  // Decrease the count
+
+            if (mKeys[keyName].GetCount() <= 0)  // If count hits 0, remove it
+            {
+                mKeys.Remove(keyName);
+            }
+        }
+    }
+    void ObtainKeys(Vector<std::string>& outKeys)
+    {
+        mKeys.ObtainKeys(outKeys);
+    }
+    
+    int GetKeyCount(const std::string& keyName)
+    {
+        if (mKeys.Has(keyName))
+        {
+            return mKeys[keyName].GetCount();
+        }
+        return 0;
+    }
+
+    bool Has(const std::string& keyName)
+    {
+        return mKeys.Has(keyName);
     }
 private:
-    Map<std::string, const KeyItem&> mKeys;
+    Map<std::string, KeyItem> mKeys;
 };
 
 int main()
 {
+    srand(time(0));
+    Inventory inventory;
+    Vector<std::string> mKeyNames;
+    for (int i = 0; i < 20; ++i)
+    {
+        mKeyNames.PushBack("Key" + std::to_string(i));
+    }
 
+    // Add 100 random keys using names from the vector
+    for (int i = 0; i < 100; i++)
+    {
+        int randomIndex = rand() % mKeyNames.Size(); // pick a random index
+        std::string randomKey = mKeyNames[randomIndex]; // get the name from the vector
+        inventory.PickupKey(randomKey, 1); // PickupKey handles creating the KeyItem internally
+    }
+
+    // Obtain all keys and print their names and counts
+    Vector<std::string> ownedKeys;
+    inventory.ObtainKeys(ownedKeys);
+
+    for (int i = 0; i < ownedKeys.Size(); i++)
+    {
+        std::string keyName = ownedKeys[i];
+        int count = inventory.GetKeyCount(keyName);
+        std::cout << "Key: " << keyName << " | Count: " << count << "\n";
+    }
+
+    int doorsUnlocked = 0;
+    int failedAttempts = 0;
+
+    int choice = 0;
+    while (true)
+    {
+        std::cout << "\n--- Adventure Menu ---\n";
+        std::cout << "1. Open a door\n";
+        std::cout << "2. Pick up a key\n";
+        std::cout << "3. Exit\n";
+        std::cout << "Enter choice: ";
+        std::cin >> choice;
+
+        if (choice == 1)
+        {
+            // Pick a random door that needs a random key
+            int randomIndex = rand() % mKeyNames.Size();
+            std::string requiredKey = mKeyNames[randomIndex];
+
+            std::cout << "You arrive at a door and need a " << requiredKey << "\n";
+
+            if (inventory.Has(requiredKey))
+            {
+                std::cout << "You have the " << requiredKey << " and have unlocked the door!\n";
+                inventory.UseKey(requiredKey, 1);
+                doorsUnlocked++;
+            }
+            else
+            {
+                std::cout << "You do not have the " << requiredKey << ", the door will remain locked.\n";
+                failedAttempts++;
+            }
+        }
+        else if (choice == 2)
+        {
+            int randomIndex = rand() % mKeyNames.Size();
+            std::string randomKey = mKeyNames[randomIndex];
+            inventory.PickupKey(randomKey, 1);
+
+            std::cout << "You picked up a " << randomKey << "!\n";
+            std::cout << "Total count of " << randomKey << ": " << inventory.GetKeyCount(randomKey) << "\n";
+        }
+        else if (choice == 3)
+        {
+            std::cout << "\n--- Game Over ---\n";
+
+            // Print all owned keys and counts
+            Vector<std::string> ownedKeys;
+            inventory.ObtainKeys(ownedKeys);
+
+            if (ownedKeys.Size() == 0)
+            {
+                std::cout << "You have no keys remaining.\n";
+            }
+            else
+            {
+                std::cout << "Keys remaining in inventory:\n";
+                for (int i = 0; i < ownedKeys.Size(); i++)
+                {
+                    std::string keyName = ownedKeys[i];
+                    std::cout << "  " << keyName << " | Count: " << inventory.GetKeyCount(keyName) << "\n";
+                }
+            }
+
+            std::cout << "Doors unlocked: " << doorsUnlocked << "\n";
+            std::cout << "Failed unlock attempts: " << failedAttempts << "\n";
+            break;
+        }
+        else
+        {
+            std::cout << "Invalid choice, please enter 1, 2, or 3.\n";
+        }
+    }
 }
 
