@@ -134,6 +134,8 @@
     <ClInclude Include="Item.h" />
     <ClInclude Include="KDTree.h" />
     <ClInclude Include="Map.h" />
+    <ClInclude Include="MSTGraph.h" />
+    <ClInclude Include="MSTGraphK.h" />
     <ClInclude Include="PriorityQueue.h" />
     <ClInclude Include="UnorderedMap.h" />
     <ClInclude Include="Vector.h" />

@@ -1,0 +1,86 @@
+{
+  "Version": 1,
+  "WorkspaceRootPath": "C:\\LASALLE SECOND YEAR\\Algorithms-and-Data-Patterns\\CustomContainers\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{3209CD2C-9636-4100-8FF9-8B8E83710BA9}|CustomContainers\\CustomContainers.vcxproj|C:\\LASALLE SECOND YEAR\\Algorithms-and-Data-Patterns\\CustomContainers\\CustomContainers\\CustomContainers.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{3209CD2C-9636-4100-8FF9-8B8E83710BA9}|CustomContainers\\CustomContainers.vcxproj|solutionrelative:CustomContainers\\CustomContainers.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{3209CD2C-9636-4100-8FF9-8B8E83710BA9}|CustomContainers\\CustomContainers.vcxproj|C:\\LASALLE SECOND YEAR\\Algorithms-and-Data-Patterns\\CustomContainers\\CustomContainers\\Globals.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{3209CD2C-9636-4100-8FF9-8B8E83710BA9}|CustomContainers\\CustomContainers.vcxproj|solutionrelative:CustomContainers\\Globals.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{3209CD2C-9636-4100-8FF9-8B8E83710BA9}|CustomContainers\\CustomContainers.vcxproj|C:\\LASALLE SECOND YEAR\\Algorithms-and-Data-Patterns\\CustomContainers\\CustomContainers\\MSTGraph.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{3209CD2C-9636-4100-8FF9-8B8E83710BA9}|CustomContainers\\CustomContainers.vcxproj|solutionrelative:CustomContainers\\MSTGraph.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{3209CD2C-9636-4100-8FF9-8B8E83710BA9}|CustomContainers\\CustomContainers.vcxproj|C:\\LASALLE SECOND YEAR\\Algorithms-and-Data-Patterns\\CustomContainers\\CustomContainers\\MSTGraphK.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{3209CD2C-9636-4100-8FF9-8B8E83710BA9}|CustomContainers\\CustomContainers.vcxproj|solutionrelative:CustomContainers\\MSTGraphK.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    }
+  ],
+  "DocumentGroupContainers": [
+    {
+      "Orientation": 0,
+      "VerticalTabListWidth": 256,
+      "DocumentGroups": [
+        {
+          "DockedWidth": 319,
+          "SelectedChildIndex": 3,
+          "Children": [
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "Globals.h",
+              "DocumentMoniker": "C:\\LASALLE SECOND YEAR\\Algorithms-and-Data-Patterns\\CustomContainers\\CustomContainers\\Globals.h",
+              "RelativeDocumentMoniker": "CustomContainers\\Globals.h",
+              "ToolTip": "C:\\LASALLE SECOND YEAR\\Algorithms-and-Data-Patterns\\CustomContainers\\CustomContainers\\Globals.h",
+              "RelativeToolTip": "CustomContainers\\Globals.h",
+              "ViewState": "AgIAAD4BAAAAAAAAAAAAAPoAAAA9AAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
+              "WhenOpened": "2026-03-07T18:14:40.81Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "MSTGraphK.h",
+              "DocumentMoniker": "C:\\LASALLE SECOND YEAR\\Algorithms-and-Data-Patterns\\CustomContainers\\CustomContainers\\MSTGraphK.h",
+              "RelativeDocumentMoniker": "CustomContainers\\MSTGraphK.h",
+              "ToolTip": "C:\\LASALLE SECOND YEAR\\Algorithms-and-Data-Patterns\\CustomContainers\\CustomContainers\\MSTGraphK.h",
+              "RelativeToolTip": "CustomContainers\\MSTGraphK.h",
+              "ViewState": "AgIAADwAAAAAAAAAAAAIwFEAAAB1AAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
+              "WhenOpened": "2026-03-07T18:08:01.996Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "MSTGraph.h",
+              "DocumentMoniker": "C:\\LASALLE SECOND YEAR\\Algorithms-and-Data-Patterns\\CustomContainers\\CustomContainers\\MSTGraph.h",
+              "RelativeDocumentMoniker": "CustomContainers\\MSTGraph.h",
+              "ToolTip": "C:\\LASALLE SECOND YEAR\\Algorithms-and-Data-Patterns\\CustomContainers\\CustomContainers\\MSTGraph.h",
+              "RelativeToolTip": "CustomContainers\\MSTGraph.h",
+              "ViewState": "AgIAAEAAAAAAAAAAAAAnwFcAAAAkAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
+              "WhenOpened": "2026-03-07T16:57:30.714Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "CustomContainers.cpp",
+              "DocumentMoniker": "C:\\LASALLE SECOND YEAR\\Algorithms-and-Data-Patterns\\CustomContainers\\CustomContainers\\CustomContainers.cpp",
+              "RelativeDocumentMoniker": "CustomContainers\\CustomContainers.cpp",
+              "ToolTip": "C:\\LASALLE SECOND YEAR\\Algorithms-and-Data-Patterns\\CustomContainers\\CustomContainers\\CustomContainers.cpp",
+              "RelativeToolTip": "CustomContainers\\CustomContainers.cpp",
+              "ViewState": "AgIAAKgFAAAAAAAAAAAiwMcFAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
+              "WhenOpened": "2026-03-07T16:57:15.815Z",
+              "EditorCaption": ""
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

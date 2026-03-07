@@ -12,6 +12,8 @@
 #include "UnorderedMap.h"
 #include "Globals.h"
 #include "Map.h"
+#include "MSTGraph.h"
+#include "MSTGraphK.h"
 
 struct Item
 {
@@ -1133,186 +1135,185 @@ void Assignment5()
 }
 
 // Assignment 6 
-
-enum Stats
+void Assignment6()
 {
-    Health,
-    Attack,
-    Speed,
-    AttackCount,
-    Count
-};
-
-class Player
-{
-public:
-    void Initialize(const std::string& name)
+    enum Stats
     {
-        mName = name;
+        Health,
+        Attack,
+        Speed,
+        AttackCount,
+        Count
+    };
 
-        mStats[static_cast<std::size_t>(Stats::Health)] = 100;
-        mStats[static_cast<std::size_t>(Stats::Attack)] = 5 + (rand() % 16); // random 5 to 20
-        mStats[static_cast<std::size_t>(Stats::Speed)] = 5 + (rand() % 16); // random 5 to 20
-        mStats[static_cast<std::size_t>(Stats::AttackCount)] = 1;
-    }
-
-    int GetStat(Stats stat) const
+    class Player
     {
-        return mStats[static_cast<std::size_t>(stat)];
-    }
-
-    void SetStat(Stats stat, int value)
-    {
-        mStats[static_cast<std::size_t>(stat)] = value;
-    }
-
-    bool IsAlive() const
-    {
-        return mStats[static_cast<std::size_t>(Stats::Health)] > 0;
-    }
-
-    const std::string& GetName() const
-    {
-        return mName;
-    }
-private:
-    std::string mName;
-    Array<int, static_cast<std::size_t>(Stats::Count)> mStats;
-
-};
-
-class Team
-{
-public:
-    void Initialize(const std::string& teamName, int numPlayers)
-    {
-        mTeamName = teamName;
-        mPlayers.Resize(numPlayers);
-        for (int i = 0; i < numPlayers; ++i)
+    public:
+        void Initialize(const std::string& name)
         {
-            mPlayers[i].Initialize(mTeamName + "-Player" + std::to_string(i));  // teamName-Player1
-        }
-    }
+            mName = name;
 
-    Player* GetNextBattlingPlayer()
-    {
-        Player* fastestPlayer = nullptr;
-        for (std::size_t i = 0; i < mPlayers.Size(); ++i)
-        {
-            Player& player = mPlayers[i];
-            if (!player.IsAlive() || player.GetStat(Stats::AttackCount) <= 0)
-            {
-                continue;
-            }
-            if (fastestPlayer == nullptr || player.GetStat(Stats::Speed) > fastestPlayer->GetStat(Stats::Speed))
-            {
-                fastestPlayer = &player;
-            }
-        }
-        return fastestPlayer;
-    }
-    
-    void DamagePlayer(Player* attacker)
-    {
-        if (attacker == nullptr)
-        {
-            return;
+            mStats[static_cast<std::size_t>(Stats::Health)] = 100;
+            mStats[static_cast<std::size_t>(Stats::Attack)] = 5 + (rand() % 16); // random 5 to 20
+            mStats[static_cast<std::size_t>(Stats::Speed)] = 5 + (rand() % 16); // random 5 to 20
+            mStats[static_cast<std::size_t>(Stats::AttackCount)] = 1;
         }
 
-        Vector<int> livingPlayers;
-        for (std::size_t i = 0; i < mPlayers.Size(); ++i)
+        int GetStat(Stats stat) const
         {
-            if (mPlayers[i].IsAlive())
+            return mStats[static_cast<std::size_t>(stat)];
+        }
+
+        void SetStat(Stats stat, int value)
+        {
+            mStats[static_cast<std::size_t>(stat)] = value;
+        }
+
+        bool IsAlive() const
+        {
+            return mStats[static_cast<std::size_t>(Stats::Health)] > 0;
+        }
+
+        const std::string& GetName() const
+        {
+            return mName;
+        }
+    private:
+        std::string mName;
+        Array<int, static_cast<std::size_t>(Stats::Count)> mStats;
+
+    };
+
+    class Team
+    {
+    public:
+        void Initialize(const std::string& teamName, int numPlayers)
+        {
+            mTeamName = teamName;
+            mPlayers.Resize(numPlayers);
+            for (int i = 0; i < numPlayers; ++i)
             {
-                livingPlayers.PushBack(static_cast<int>(i));
+                mPlayers[i].Initialize(mTeamName + "-Player" + std::to_string(i));  // teamName-Player1
             }
         }
 
-        if (livingPlayers.Size() == 0)
+        Player* GetNextBattlingPlayer()
         {
-            attacker->SetStat(Stats::AttackCount, 0);
-            return;
-        }
-
-        int randomIndex = livingPlayers[rand() % livingPlayers.Size()];
-        Player& target = mPlayers[randomIndex];
-        int damage = attacker->GetStat(Stats::Attack);
-        int newHealth = target.GetStat(Stats::Health) - damage;
-        target.SetStat(Stats::Health, std::max(0, newHealth));  
-
-        attacker->SetStat(Stats::AttackCount, attacker->GetStat(Stats::AttackCount) - 1);
-
-        if ((rand() % 100) < 25)
-        {
-            int newSpeed = target.GetStat(Stats::Speed) - 10;
-            target.SetStat(Stats::Speed, std::max(1, newSpeed));
-        }
-
-        if ((rand() % 100) < 10)
-        {
-            int newSpeed = attacker->GetStat(Stats::Speed) + 5;
-            attacker->SetStat(Stats::Speed, std::min(50, newSpeed));
-        }
-    }
-
-    int GetRemainingPlayers() const
-    {
-        int count = 0;
-        for (std::size_t i = 0; i < mPlayers.Size(); ++i)
-        {
-            if (mPlayers[i].IsAlive())
+            Player* fastestPlayer = nullptr;
+            for (std::size_t i = 0; i < mPlayers.Size(); ++i)
             {
-                ++count;
+                Player& player = mPlayers[i];
+                if (!player.IsAlive() || player.GetStat(Stats::AttackCount) <= 0)
+                {
+                    continue;
+                }
+                if (fastestPlayer == nullptr || player.GetStat(Stats::Speed) > fastestPlayer->GetStat(Stats::Speed))
+                {
+                    fastestPlayer = &player;
+                }
+            }
+            return fastestPlayer;
+        }
+
+        void DamagePlayer(Player* attacker)
+        {
+            if (attacker == nullptr)
+            {
+                return;
+            }
+
+            Vector<int> livingPlayers;
+            for (std::size_t i = 0; i < mPlayers.Size(); ++i)
+            {
+                if (mPlayers[i].IsAlive())
+                {
+                    livingPlayers.PushBack(static_cast<int>(i));
+                }
+            }
+
+            if (livingPlayers.Size() == 0)
+            {
+                attacker->SetStat(Stats::AttackCount, 0);
+                return;
+            }
+
+            int randomIndex = livingPlayers[rand() % livingPlayers.Size()];
+            Player& target = mPlayers[randomIndex];
+            int damage = attacker->GetStat(Stats::Attack);
+            int newHealth = target.GetStat(Stats::Health) - damage;
+            target.SetStat(Stats::Health, std::max(0, newHealth));
+
+            attacker->SetStat(Stats::AttackCount, attacker->GetStat(Stats::AttackCount) - 1);
+
+            if ((rand() % 100) < 25)
+            {
+                int newSpeed = target.GetStat(Stats::Speed) - 10;
+                target.SetStat(Stats::Speed, std::max(1, newSpeed));
+            }
+
+            if ((rand() % 100) < 10)
+            {
+                int newSpeed = attacker->GetStat(Stats::Speed) + 5;
+                attacker->SetStat(Stats::Speed, std::min(50, newSpeed));
             }
         }
-        return count;
-    }
 
-    void OrderPlayers()
-    {
-        auto order = [](const Player& a, const Player& b) -> bool
-            {
-                int speedA = (a.GetStat(Stats::AttackCount) <= 0 || !a.IsAlive()) ? 0 : a.GetStat(Stats::Speed);
-                int speedB = (b.GetStat(Stats::AttackCount) <= 0 || !b.IsAlive()) ? 0 : b.GetStat(Stats::Speed);
-                return speedB < speedA;
-            };
-
-        Globals::IntroSort(mPlayers.Begin(), mPlayers.End(), order);
-    }
-
-    void StartTurn()
-    {
-        for (std::size_t i = 0; i < mPlayers.Size(); ++i)
+        int GetRemainingPlayers() const
         {
-            if (mPlayers[i].IsAlive())
+            int count = 0;
+            for (std::size_t i = 0; i < mPlayers.Size(); ++i)
             {
-                mPlayers[i].SetStat(Stats::AttackCount, 1);
+                if (mPlayers[i].IsAlive())
+                {
+                    ++count;
+                }
             }
+            return count;
         }
-        OrderPlayers();
-    }
 
-    const std::string& GetName() const 
-    {
-        return mTeamName; 
-    }
+        void OrderPlayers()
+        {
+            auto order = [](const Player& a, const Player& b) -> bool
+                {
+                    int speedA = (a.GetStat(Stats::AttackCount) <= 0 || !a.IsAlive()) ? 0 : a.GetStat(Stats::Speed);
+                    int speedB = (b.GetStat(Stats::AttackCount) <= 0 || !b.IsAlive()) ? 0 : b.GetStat(Stats::Speed);
+                    return speedB < speedA;
+                };
 
-    Vector<Player>& GetPlayers() 
-    {
-        return mPlayers;
-    }
-private:
-    std::string mTeamName;
-    Vector<Player> mPlayers;
-};
+            Globals::IntroSort(mPlayers.Begin(), mPlayers.End(), order);
+        }
 
-int main()
-{
+        void StartTurn()
+        {
+            for (std::size_t i = 0; i < mPlayers.Size(); ++i)
+            {
+                if (mPlayers[i].IsAlive())
+                {
+                    mPlayers[i].SetStat(Stats::AttackCount, 1);
+                }
+            }
+            OrderPlayers();
+        }
+
+        const std::string& GetName() const
+        {
+            return mTeamName;
+        }
+
+        Vector<Player>& GetPlayers()
+        {
+            return mPlayers;
+        }
+    private:
+        std::string mTeamName;
+        Vector<Player> mPlayers;
+    };
+    // main code
     Team teamOne;
     Team teamTwo;
     teamOne.Initialize("Team One", 10);
     teamTwo.Initialize("Team Two", 10);
-    
+
 
     std::cout << "BATTLE STARTS NOW!\n\n";
 
@@ -1426,5 +1427,62 @@ int main()
     {
         std::cout << "It's a DRAW! Both teams have been eliminated, better luck next time teams" << "\n";
     }
+}
+
+int main()
+{
+    std::cout << "Coustom MST:\n";
+    // a, b, c, d, e
+    Vector<std::string> nodes;
+    nodes.PushBack("A");
+    nodes.PushBack("B");
+    nodes.PushBack("C");
+    nodes.PushBack("D");
+    nodes.PushBack("E");
+
+    // using Prims Algoritm
+    MSTGraph<std::string, int> mstGraphPA;
+    for (std::size_t i = 0; i < nodes.Size(); ++i)
+    {
+        mstGraphPA.AddItem(&nodes[i]);
+    }
+    // link all the nodes edges
+    mstGraphPA.AddEdge(0, 1, 9);
+    mstGraphPA.AddEdge(0, 2, 5);
+    mstGraphPA.AddEdge(0, 3, 2);
+    mstGraphPA.AddEdge(1, 3, 6);
+    mstGraphPA.AddEdge(1, 4, 5);
+    mstGraphPA.AddEdge(2, 3, 4);
+    mstGraphPA.AddEdge(2, 4, 5);
+    mstGraphPA.AddEdge(3, 4, 4);
+
+    mstGraphPA.GenerateMST(0);
+
+    std::cout << "MST:\n";
+    const Vector<MSTGraph<std::string, int>::Edge>& mstEdge = mstGraphPA.GetMST();
+    for (std::size_t i = 0; i < mstEdge.Size(); ++i)
+    {
+        std::cout << nodes[mstEdge[i].fromIndex] << "-" << nodes[mstEdge[i].toIndex] << " ";
+    }
+
+    std::cout << "\n";
+    std::cout << "\n";
+    std::cout << "Kruskal's MST:\n";
+    MSTGraphK<int> mstGraphKA;
+    mstGraphKA.AddEdge(0, 1, 9);
+    mstGraphKA.AddEdge(0, 2, 5);
+    mstGraphKA.AddEdge(0, 3, 2);
+    mstGraphKA.AddEdge(1, 3, 6);
+    mstGraphKA.AddEdge(1, 4, 5);
+    mstGraphKA.AddEdge(2, 3, 4);
+    mstGraphKA.AddEdge(2, 4, 5);
+    mstGraphKA.AddEdge(3, 4, 4);
+    mstGraphKA.GenerateMST();
+    const Vector<MSTGraphK<int>::Edge>& mstEdgesK = mstGraphKA.GetMST();
+    for (std::size_t i = 0; i < mstEdgesK.Size(); ++i)
+    {
+        std::cout << nodes[mstEdgesK[i].fromNode] << "-" << nodes[mstEdgesK[i].toNode] << " ";
+    }
+
 }
 
