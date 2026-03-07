@@ -94,28 +94,19 @@ namespace Globals
 		}
 	}
 
-	template<typename T, typename Compare = std::less<typename std::iterator_traits<ContainerIterator<T>>::value_type>>
+	template<typename T, typename Compare>
 	void InsertionSort(ContainerIterator<T> begin, ContainerIterator<T> end, Compare comp = Compare())
 	{
-		if(begin == end)
-		{
-			return;
-		}
-		for(ContainerIterator<T> i = begin + 1; i != end; ++i)
+		if (begin == end) return;
+
+		for (ContainerIterator<T> i = begin + 1; i != end; ++i)
 		{
 			T key = *i;
 			ContainerIterator<T> j = i;
-			while (j >= begin)
+			while (j != begin && comp(key, *(j - 1)))  
 			{
-				if(comp(key, *(j - 1)))
-				{
-					*j = *(j - 1);
-					--j;
-				}
-				else
-				{
-					break;
-				}
+				*j = *(j - 1);
+				--j;
 			}
 			*j = key;
 		}

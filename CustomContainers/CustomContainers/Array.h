@@ -44,7 +44,11 @@ public:
 	// get called when Array<int, 5> intArray = std::move(otherArray
 	Array(Array&& other)
 	{
-		mValues = other.mValues;
+		mValues = new T[N]; 
+		for (std::size_t i = 0; i < N; ++i)
+		{
+			mValues[i] = other.mValues[i];
+		}
 		other.mValues = nullptr;
 	}
 
@@ -58,7 +62,7 @@ public:
 		mValues = new T[N];
 		for (int i = 0; i < N; ++i)
 		{
-			mValues[i].other.mValues[i];
+			mValues[i] = other.mValues[i];
 		}
 		return *this;
 	}
@@ -66,11 +70,16 @@ public:
 	// get called when intArray = std::move(otherArray)
 	Array& operator=(Array&& other)
 	{
+		if (this == &other) return *this;
 		if (mValues != nullptr)
 		{
 			delete[] mValues;
 		}
-		mValues = std::move(other.mValues);
+		mValues = new T[N]; 
+		for (std::size_t i = 0; i < N; ++i)
+		{
+			mValues[i] = other.mValues[i];
+		}
 		other.mValues = nullptr;
 		return *this;
 	}

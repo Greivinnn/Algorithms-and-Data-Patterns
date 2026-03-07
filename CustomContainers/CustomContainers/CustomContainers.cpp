@@ -946,90 +946,90 @@ void Assignment4()
     }
 
 }
-
-// Homework assignment 5
-class KeyItem
+void Assignment5()
 {
-public:
-    void Add(int amount)
+    // Homework assignment 5
+    class KeyItem
     {
-		mCount += amount;
-    }
-    void Consume(int amount)
-    {
-        mCount -= amount;
-    }
-    int GetCount() const
-    {
-        return mCount;
-	}   
-    void Print() const
-    {
-		std::cout << mName << ": " << mCount << "\n";
-    }
-private:
-    std::string mName;
-    int mCount = 0;
-};
-
-class Inventory
-{
-public:
-    Inventory* Get()
-    {
-        static Inventory instance;
-        return &instance;
-	}
-    void PickupKey(const std::string& keyName, int amount)
-    {
-        if(mKeys.Has(keyName))
+    public:
+        void Add(int amount)
         {
-			std::cout << "This key already exists, adding " << amount << " to it.\n";
-            mKeys[keyName].Add(amount);
+            mCount += amount;
         }
-        else
+        void Consume(int amount)
         {
-            KeyItem newKey;
-            newKey.Add(amount);
-            mKeys.Insert(keyName, newKey);
-		}
-	}
-    void UseKey(const std::string& keyName, int amount)
-    {
-        if (mKeys.Has(keyName))
+            mCount -= amount;
+        }
+        int GetCount() const
         {
-            mKeys[keyName].Consume(amount);  // Decrease the count
+            return mCount;
+        }
+        void Print() const
+        {
+            std::cout << mName << ": " << mCount << "\n";
+        }
+    private:
+        std::string mName;
+        int mCount = 0;
+    };
 
-            if (mKeys[keyName].GetCount() <= 0)  // If count hits 0, remove it
+    class Inventory
+    {
+    public:
+        Inventory* Get()
+        {
+            static Inventory instance;
+            return &instance;
+        }
+        void PickupKey(const std::string& keyName, int amount)
+        {
+            if (mKeys.Has(keyName))
             {
-                mKeys.Remove(keyName);
+                std::cout << "This key already exists, adding " << amount << " to it.\n";
+                mKeys[keyName].Add(amount);
+            }
+            else
+            {
+                KeyItem newKey;
+                newKey.Add(amount);
+                mKeys.Insert(keyName, newKey);
             }
         }
-    }
-    void ObtainKeys(Vector<std::string>& outKeys)
-    {
-        mKeys.ObtainKeys(outKeys);
-    }
-    
-    int GetKeyCount(const std::string& keyName)
-    {
-        if (mKeys.Has(keyName))
+        void UseKey(const std::string& keyName, int amount)
         {
-            return mKeys[keyName].GetCount();
+            if (mKeys.Has(keyName))
+            {
+                mKeys[keyName].Consume(amount);  // Decrease the count
+
+                if (mKeys[keyName].GetCount() <= 0)  // If count hits 0, remove it
+                {
+                    mKeys.Remove(keyName);
+                }
+            }
         }
-        return 0;
-    }
+        void ObtainKeys(Vector<std::string>& outKeys)
+        {
+            mKeys.ObtainKeys(outKeys);
+        }
 
-    bool Has(const std::string& keyName)
-    {
-        return mKeys.Has(keyName);
-    }
-private:
-    Map<std::string, KeyItem> mKeys;
-};
+        int GetKeyCount(const std::string& keyName)
+        {
+            if (mKeys.Has(keyName))
+            {
+                return mKeys[keyName].GetCount();
+            }
+            return 0;
+        }
 
-int main()
-{
+        bool Has(const std::string& keyName)
+        {
+            return mKeys.Has(keyName);
+        }
+    private:
+        Map<std::string, KeyItem> mKeys;
+    };
+
+    // main code 
     srand(time(0));
     Inventory inventory;
     Vector<std::string> mKeyNames;
@@ -1129,6 +1129,302 @@ int main()
         {
             std::cout << "Invalid choice, please enter 1, 2, or 3.\n";
         }
+    }
+}
+
+// Assignment 6 
+
+enum Stats
+{
+    Health,
+    Attack,
+    Speed,
+    AttackCount,
+    Count
+};
+
+class Player
+{
+public:
+    void Initialize(const std::string& name)
+    {
+        mName = name;
+
+        mStats[static_cast<std::size_t>(Stats::Health)] = 100;
+        mStats[static_cast<std::size_t>(Stats::Attack)] = 5 + (rand() % 16); // random 5 to 20
+        mStats[static_cast<std::size_t>(Stats::Speed)] = 5 + (rand() % 16); // random 5 to 20
+        mStats[static_cast<std::size_t>(Stats::AttackCount)] = 1;
+    }
+
+    int GetStat(Stats stat) const
+    {
+        return mStats[static_cast<std::size_t>(stat)];
+    }
+
+    void SetStat(Stats stat, int value)
+    {
+        mStats[static_cast<std::size_t>(stat)] = value;
+    }
+
+    bool IsAlive() const
+    {
+        return mStats[static_cast<std::size_t>(Stats::Health)] > 0;
+    }
+
+    const std::string& GetName() const
+    {
+        return mName;
+    }
+private:
+    std::string mName;
+    Array<int, static_cast<std::size_t>(Stats::Count)> mStats;
+
+};
+
+class Team
+{
+public:
+    void Initialize(const std::string& teamName, int numPlayers)
+    {
+        mTeamName = teamName;
+        mPlayers.Resize(numPlayers);
+        for (int i = 0; i < numPlayers; ++i)
+        {
+            mPlayers[i].Initialize(mTeamName + "-Player" + std::to_string(i));  // teamName-Player1
+        }
+    }
+
+    Player* GetNextBattlingPlayer()
+    {
+        Player* fastestPlayer = nullptr;
+        for (std::size_t i = 0; i < mPlayers.Size(); ++i)
+        {
+            Player& player = mPlayers[i];
+            if (!player.IsAlive() || player.GetStat(Stats::AttackCount) <= 0)
+            {
+                continue;
+            }
+            if (fastestPlayer == nullptr || player.GetStat(Stats::Speed) > fastestPlayer->GetStat(Stats::Speed))
+            {
+                fastestPlayer = &player;
+            }
+        }
+        return fastestPlayer;
+    }
+    
+    void DamagePlayer(Player* attacker)
+    {
+        if (attacker == nullptr)
+        {
+            return;
+        }
+
+        Vector<int> livingPlayers;
+        for (std::size_t i = 0; i < mPlayers.Size(); ++i)
+        {
+            if (mPlayers[i].IsAlive())
+            {
+                livingPlayers.PushBack(static_cast<int>(i));
+            }
+        }
+
+        if (livingPlayers.Size() == 0)
+        {
+            attacker->SetStat(Stats::AttackCount, 0);
+            return;
+        }
+
+        int randomIndex = livingPlayers[rand() % livingPlayers.Size()];
+        Player& target = mPlayers[randomIndex];
+        int damage = attacker->GetStat(Stats::Attack);
+        int newHealth = target.GetStat(Stats::Health) - damage;
+        target.SetStat(Stats::Health, std::max(0, newHealth));  
+
+        attacker->SetStat(Stats::AttackCount, attacker->GetStat(Stats::AttackCount) - 1);
+
+        if ((rand() % 100) < 25)
+        {
+            int newSpeed = target.GetStat(Stats::Speed) - 10;
+            target.SetStat(Stats::Speed, std::max(1, newSpeed));
+        }
+
+        if ((rand() % 100) < 10)
+        {
+            int newSpeed = attacker->GetStat(Stats::Speed) + 5;
+            attacker->SetStat(Stats::Speed, std::min(50, newSpeed));
+        }
+    }
+
+    int GetRemainingPlayers() const
+    {
+        int count = 0;
+        for (std::size_t i = 0; i < mPlayers.Size(); ++i)
+        {
+            if (mPlayers[i].IsAlive())
+            {
+                ++count;
+            }
+        }
+        return count;
+    }
+
+    void OrderPlayers()
+    {
+        auto order = [](const Player& a, const Player& b) -> bool
+            {
+                int speedA = (a.GetStat(Stats::AttackCount) <= 0 || !a.IsAlive()) ? 0 : a.GetStat(Stats::Speed);
+                int speedB = (b.GetStat(Stats::AttackCount) <= 0 || !b.IsAlive()) ? 0 : b.GetStat(Stats::Speed);
+                return speedB < speedA;
+            };
+
+        Globals::IntroSort(mPlayers.Begin(), mPlayers.End(), order);
+    }
+
+    void StartTurn()
+    {
+        for (std::size_t i = 0; i < mPlayers.Size(); ++i)
+        {
+            if (mPlayers[i].IsAlive())
+            {
+                mPlayers[i].SetStat(Stats::AttackCount, 1);
+            }
+        }
+        OrderPlayers();
+    }
+
+    const std::string& GetName() const 
+    {
+        return mTeamName; 
+    }
+
+    Vector<Player>& GetPlayers() 
+    {
+        return mPlayers;
+    }
+private:
+    std::string mTeamName;
+    Vector<Player> mPlayers;
+};
+
+int main()
+{
+    Team teamOne;
+    Team teamTwo;
+    teamOne.Initialize("Team One", 10);
+    teamTwo.Initialize("Team Two", 10);
+    
+
+    std::cout << "BATTLE STARTS NOW!\n\n";
+
+    int turnNumber = 0;
+
+    while (teamOne.GetRemainingPlayers() > 0 && teamTwo.GetRemainingPlayers() > 0)
+    {
+        ++turnNumber;
+        std::cout << "<--- Turn " << turnNumber << " --->\n";
+        std::cout << teamOne.GetName() << " remaining: " << teamOne.GetRemainingPlayers() << " |vs| " << teamTwo.GetName() << " remaining: " << teamTwo.GetRemainingPlayers() << "\n";
+        std::cout << "\n\n";
+
+        teamOne.StartTurn();
+        teamTwo.StartTurn();
+
+        bool anyoneCanAttack = true;
+        while (anyoneCanAttack && teamOne.GetRemainingPlayers() > 0 && teamTwo.GetRemainingPlayers() > 0)
+        {
+            Player* playerA = teamOne.GetNextBattlingPlayer();
+            Player* playerB = teamTwo.GetNextBattlingPlayer();
+
+            anyoneCanAttack = (playerA != nullptr || playerB != nullptr);
+            if (!anyoneCanAttack)
+            {
+                break;
+            }
+
+            bool oneGoesFirst = false;
+            if (playerA != nullptr && playerB != nullptr)
+            {
+                int speedA = playerA->GetStat(Stats::Speed);
+                int speedB = playerB->GetStat(Stats::Speed);
+
+                if (speedA == speedB)
+                {
+                    oneGoesFirst = (rand() % 2) == 0;
+                }
+                else
+                {
+                    oneGoesFirst = speedA > speedB;
+                }
+            }
+            else
+            {
+                oneGoesFirst = (playerA != nullptr);
+            }
+
+            if (oneGoesFirst && playerA != nullptr)
+            {
+                int remainingBefore = teamTwo.GetRemainingPlayers();
+                std::cout << "[" << teamOne.GetName() << "] " << playerA->GetName()
+                    << " (SPEED:" << playerA->GetStat(Stats::Speed)
+                    << " ATTACK:" << playerA->GetStat(Stats::Attack) << ") attacks "
+                    << teamTwo.GetName() << "!\n";
+
+                teamTwo.DamagePlayer(playerA);
+
+                int remainingAfter = teamTwo.GetRemainingPlayers();
+
+                if (remainingAfter < remainingBefore)
+                {
+                    std::cout << "  >> One of " << teamTwo.GetName() << " players was eliminated! (" << remainingAfter << " remaining)\n";
+                }
+
+                else
+                {
+                    std::cout << "  >> Hit! " << teamTwo.GetName() << " still has " << remainingAfter << " players standing.\n";
+                }
+            }
+            else if (!oneGoesFirst && playerB != nullptr)
+            {
+                int remainingBefore = teamOne.GetRemainingPlayers();
+                std::cout << "[" << teamTwo.GetName() << "] " << playerB->GetName()
+                    << " (SPEED:" << playerB->GetStat(Stats::Speed)
+                    << " ATTACK:" << playerB->GetStat(Stats::Attack) << ") attacks "
+                    << teamOne.GetName() << "!\n";
+
+                teamOne.DamagePlayer(playerB);
+
+                int remainingAfter = teamOne.GetRemainingPlayers();
+
+                if (remainingAfter < remainingBefore)
+                {
+                    std::cout << "  >> One of " << teamOne.GetName() << " players was eliminated! (" << remainingAfter << " remaining)\n";
+                }
+
+                else
+                {
+                    std::cout << "  >> Hit! " << teamOne.GetName() << " still has " << remainingAfter << " players standing.\n";
+                }
+            }
+
+            teamOne.OrderPlayers();
+            teamTwo.OrderPlayers();
+        }
+
+        std::cout << "\n";
+    }
+
+    std::cout << "RING RING RING! BATTLE OVER\n";
+
+    if (teamOne.GetRemainingPlayers() > 0 && teamTwo.GetRemainingPlayers() <= 0)
+    {
+        std::cout << teamOne.GetName() << " WINS with " << teamOne.GetRemainingPlayers() << " players remaining!\n";
+    }
+    else if (teamTwo.GetRemainingPlayers() > 0 && teamOne.GetRemainingPlayers() <= 0)
+    {
+        std::cout << teamTwo.GetName() << " WINS with " << teamTwo.GetRemainingPlayers() << " players remaining!\n";
+    }
+    else
+    {
+        std::cout << "It's a DRAW! Both teams have been eliminated, better luck next time teams" << "\n";
     }
 }
 
