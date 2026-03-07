@@ -1429,60 +1429,111 @@ void Assignment6()
     }
 }
 
+void MSTGraphClass()
+{
+     std::cout << "Coustom MST:\n";
+// a, b, c, d, e
+Vector<std::string> nodes;
+nodes.PushBack("A");
+nodes.PushBack("B");
+nodes.PushBack("C");
+nodes.PushBack("D");
+nodes.PushBack("E");
+
+// using Prims Algoritm
+MSTGraph<std::string, int> mstGraphPA;
+for (std::size_t i = 0; i < nodes.Size(); ++i)
+{
+    mstGraphPA.AddItem(&nodes[i]);
+}
+// link all the nodes edges
+mstGraphPA.AddEdge(0, 1, 9);
+mstGraphPA.AddEdge(0, 2, 5);
+mstGraphPA.AddEdge(0, 3, 2);
+mstGraphPA.AddEdge(1, 3, 6);
+mstGraphPA.AddEdge(1, 4, 5);
+mstGraphPA.AddEdge(2, 3, 4);
+mstGraphPA.AddEdge(2, 4, 5);
+mstGraphPA.AddEdge(3, 4, 4);
+
+mstGraphPA.GenerateMST(0);
+
+std::cout << "MST:\n";
+const Vector<MSTGraph<std::string, int>::Edge>& mstEdge = mstGraphPA.GetMST();
+for (std::size_t i = 0; i < mstEdge.Size(); ++i)
+{
+    std::cout << nodes[mstEdge[i].fromIndex] << "-" << nodes[mstEdge[i].toIndex] << " ";
+}
+
+std::cout << "\n";
+std::cout << "\n";
+std::cout << "Kruskal's MST:\n";
+MSTGraphK<int> mstGraphKA;
+mstGraphKA.AddEdge(0, 1, 9);
+mstGraphKA.AddEdge(0, 2, 5);
+mstGraphKA.AddEdge(0, 3, 2);
+mstGraphKA.AddEdge(1, 3, 6);
+mstGraphKA.AddEdge(1, 4, 5);
+mstGraphKA.AddEdge(2, 3, 4);
+mstGraphKA.AddEdge(2, 4, 5);
+mstGraphKA.AddEdge(3, 4, 4);
+mstGraphKA.GenerateMST();
+const Vector<MSTGraphK<int>::Edge>& mstEdgesK = mstGraphKA.GetMST();
+for (std::size_t i = 0; i < mstEdgesK.Size(); ++i)
+{
+    std::cout << nodes[mstEdgesK[i].fromNode] << "-" << nodes[mstEdgesK[i].toNode] << " ";
+}
+
+}
+
+// Assignment 7
+class House
+{
+public:
+    std::string GetName() const
+    {
+        return mName;
+    }
+    Vector2 GetPosition() const
+    {
+        return mPosition;
+    }
+private:
+    std::string mName;
+    Vector2 mPosition;
+};
+
+class City
+{
+public:
+    void AddHouse(const std::string& name, const Vector2& pos)
+    {
+        for (std::size_t i = 0; i < mHouses.Size(); ++i)
+        {
+            if (name == mHouses[i].GetName() || pos == mHouses[i].GetPosition())
+            {
+                std::cout << "This house is already taken.\n";
+                return;
+            }
+            else
+            {
+                mHouses.PushBack(mHouses[i]);
+            }
+        }
+    }
+
+    void ConnectAllHouses()
+    {
+
+    }
+private:
+    Vector<House> mHouses;
+    MSTGraph<House, float> mHousesGraph;
+    MSTGraphK<float> mHouseEdgesGraph;
+};
+
 int main()
 {
-    std::cout << "Coustom MST:\n";
-    // a, b, c, d, e
-    Vector<std::string> nodes;
-    nodes.PushBack("A");
-    nodes.PushBack("B");
-    nodes.PushBack("C");
-    nodes.PushBack("D");
-    nodes.PushBack("E");
-
-    // using Prims Algoritm
-    MSTGraph<std::string, int> mstGraphPA;
-    for (std::size_t i = 0; i < nodes.Size(); ++i)
-    {
-        mstGraphPA.AddItem(&nodes[i]);
-    }
-    // link all the nodes edges
-    mstGraphPA.AddEdge(0, 1, 9);
-    mstGraphPA.AddEdge(0, 2, 5);
-    mstGraphPA.AddEdge(0, 3, 2);
-    mstGraphPA.AddEdge(1, 3, 6);
-    mstGraphPA.AddEdge(1, 4, 5);
-    mstGraphPA.AddEdge(2, 3, 4);
-    mstGraphPA.AddEdge(2, 4, 5);
-    mstGraphPA.AddEdge(3, 4, 4);
-
-    mstGraphPA.GenerateMST(0);
-
-    std::cout << "MST:\n";
-    const Vector<MSTGraph<std::string, int>::Edge>& mstEdge = mstGraphPA.GetMST();
-    for (std::size_t i = 0; i < mstEdge.Size(); ++i)
-    {
-        std::cout << nodes[mstEdge[i].fromIndex] << "-" << nodes[mstEdge[i].toIndex] << " ";
-    }
-
-    std::cout << "\n";
-    std::cout << "\n";
-    std::cout << "Kruskal's MST:\n";
-    MSTGraphK<int> mstGraphKA;
-    mstGraphKA.AddEdge(0, 1, 9);
-    mstGraphKA.AddEdge(0, 2, 5);
-    mstGraphKA.AddEdge(0, 3, 2);
-    mstGraphKA.AddEdge(1, 3, 6);
-    mstGraphKA.AddEdge(1, 4, 5);
-    mstGraphKA.AddEdge(2, 3, 4);
-    mstGraphKA.AddEdge(2, 4, 5);
-    mstGraphKA.AddEdge(3, 4, 4);
-    mstGraphKA.GenerateMST();
-    const Vector<MSTGraphK<int>::Edge>& mstEdgesK = mstGraphKA.GetMST();
-    for (std::size_t i = 0; i < mstEdgesK.Size(); ++i)
-    {
-        std::cout << nodes[mstEdgesK[i].fromNode] << "-" << nodes[mstEdgesK[i].toNode] << " ";
-    }
-
+   
 }
 
