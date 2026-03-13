@@ -9,6 +9,8 @@ C:\LASALLE SECOND YEAR\Algorithms-and-Data-Patterns\CustomContainers\CustomConta
 C:\LASALLE SECOND YEAR\Algorithms-and-Data-Patterns\CustomContainers\CustomContainers\CustomContainers.cpp(808,33): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
 C:\LASALLE SECOND YEAR\Algorithms-and-Data-Patterns\CustomContainers\CustomContainers\CustomContainers.cpp(832,15): warning C4244: 'argument': conversion from 'time_t' to 'unsigned int', possible loss of data
 C:\LASALLE SECOND YEAR\Algorithms-and-Data-Patterns\CustomContainers\CustomContainers\CustomContainers.cpp(1035,15): warning C4244: 'argument': conversion from 'time_t' to 'unsigned int', possible loss of data
+C:\LASALLE SECOND YEAR\Algorithms-and-Data-Patterns\CustomContainers\CustomContainers\CustomContainers.cpp(1548,45): warning C4267: 'argument': conversion from 'size_t' to 'int', possible loss of data
+C:\LASALLE SECOND YEAR\Algorithms-and-Data-Patterns\CustomContainers\CustomContainers\CustomContainers.cpp(1548,42): warning C4267: 'argument': conversion from 'size_t' to 'int', possible loss of data
 C:\LASALLE SECOND YEAR\Algorithms-and-Data-Patterns\CustomContainers\CustomContainers\Globals.h(324,19): warning C4244: 'initializing': conversion from 'double' to 'int', possible loss of data
   (compiling source file 'CustomContainers.cpp')
       C:\LASALLE SECOND YEAR\Algorithms-and-Data-Patterns\CustomContainers\CustomContainers\Globals.h(324,19):
@@ -25,12 +27,12 @@ C:\LASALLE SECOND YEAR\Algorithms-and-Data-Patterns\CustomContainers\CustomConta
   (compiling source file 'CustomContainers.cpp')
       C:\LASALLE SECOND YEAR\Algorithms-and-Data-Patterns\CustomContainers\CustomContainers\MSTGraphK.h(78,16):
       the template instantiation context (the oldest one first) is
-          C:\LASALLE SECOND YEAR\Algorithms-and-Data-Patterns\CustomContainers\CustomContainers\CustomContainers.cpp(1471,20):
+          C:\LASALLE SECOND YEAR\Algorithms-and-Data-Patterns\CustomContainers\CustomContainers\CustomContainers.cpp(1471,16):
           see reference to class template instantiation 'MSTGraphK<int>' being compiled
           C:\LASALLE SECOND YEAR\Algorithms-and-Data-Patterns\CustomContainers\CustomContainers\MSTGraphK.h(76,7):
           while compiling class template member function 'void MSTGraphK<int>::GenerateMST(void)'
-              C:\LASALLE SECOND YEAR\Algorithms-and-Data-Patterns\CustomContainers\CustomContainers\CustomContainers.cpp(1480,27):
-              see the first reference to 'MSTGraphK<int>::GenerateMST' in 'main'
+              C:\LASALLE SECOND YEAR\Algorithms-and-Data-Patterns\CustomContainers\CustomContainers\CustomContainers.cpp(1480,23):
+              see the first reference to 'MSTGraphK<int>::GenerateMST' in 'MSTGraphClass'
   
 C:\LASALLE SECOND YEAR\Algorithms-and-Data-Patterns\CustomContainers\CustomContainers\Map.h(55,13): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
   (compiling source file 'CustomContainers.cpp')

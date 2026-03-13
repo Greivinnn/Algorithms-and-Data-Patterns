@@ -1490,6 +1490,15 @@ for (std::size_t i = 0; i < mstEdgesK.Size(); ++i)
 class House
 {
 public:
+    House(const std::string& name, const Vector2& pos)
+        : mName(name), mPosition(pos)
+    {
+
+    }
+    House()
+    {
+
+    }
     std::string GetName() const
     {
         return mName;
@@ -1508,6 +1517,7 @@ class City
 public:
     void AddHouse(const std::string& name, const Vector2& pos)
     {
+        // goes through mHouses and see if the house is already taken or not
         for (std::size_t i = 0; i < mHouses.Size(); ++i)
         {
             if (name == mHouses[i].GetName() || pos == mHouses[i].GetPosition())
@@ -1515,16 +1525,29 @@ public:
                 std::cout << "This house is already taken.\n";
                 return;
             }
-            else
-            {
-                mHouses.PushBack(mHouses[i]);
-            }
         }
+        // push back the new houses
+        House newHouse(name, pos);
+        mHouses.PushBack(newHouse);
     }
 
     void ConnectAllHouses()
     {
+        // go through all the houses and add them as a node of mHouseGraph using .AddItem
+        for (std::size_t i = 0; i < mHouses.Size(); ++i)
+        {
+            mHousesGraph.AddItem(&mHouses[i]);
+        }
 
+        // go through all the houses and add a i and j value and also get the distance between them and use it as the weight
+        for (std::size_t i = 0; i < mHouses.Size(); ++i)
+        {
+            for (std::size_t j = i + 1; j < mHouses.Size(); ++j)
+            {
+                float distance = mHouses[i].GetPosition().Distance(mHouses[j].GetPosition());
+                mHouseEdgesGraph.AddEdge(i, j, distance);
+            }
+        }
     }
 private:
     Vector<House> mHouses;
