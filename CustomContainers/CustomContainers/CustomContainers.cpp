@@ -1546,7 +1546,54 @@ public:
             {
                 float distance = mHouses[i].GetPosition().Distance(mHouses[j].GetPosition());
                 mHouseEdgesGraph.AddEdge(i, j, distance);
+                mHousesGraph.AddEdge(i, j, distance, true);
             }
+        }
+    }
+
+    float GetTotalRoadDistancePrim()
+    {
+        // return the MST from mHousesGraph using Prim's algorithm
+        mHousesGraph.GenerateMST(0);
+        const auto& mstEdges = mHousesGraph.GetMST();
+
+        // sum up the weights for the total road dinstance 
+        float totalDistance = 0.0f;
+        for (std::size_t i = 0; i < mstEdges.Size(); ++i)
+        {
+            totalDistance += mstEdges[i].weight;
+        }
+
+        // finally return the total distance calculated
+        return totalDistance;
+    }
+
+    float GetToalRoadDistanceKruskal()
+    {
+        // same code as before but this time we use MSTGraphK functions instead of MSTGraph
+        mHouseEdgesGraph.GenerateMST();
+        const auto& mstEdges = mHouseEdgesGraph.GetMST();
+
+        float totalDistance = 0.0f;
+        for (std::size_t i = 0; i < mstEdges.Size(); ++i)
+        {
+            totalDistance += mstEdges[i].weight;
+        }
+
+        // finally return the total distance calculated
+        return totalDistance;
+    }
+
+    void PrintMST()
+    {
+        std::cout << "=== Prim's Connections ===\n";
+        const auto& primEdges = mHousesGraph.GetMST();
+        for (std::size_t i = 0; i < primEdges.Size(); ++i)
+        {
+            std::cout << mHouses[primEdges[i].fromIndex].GetName()
+                << " -> "
+                << mHouses[primEdges[i].fromIndex].GetName()
+                << " | Distance: " << primEdges[i].weight << "m\n";
         }
     }
 private:
@@ -1557,6 +1604,43 @@ private:
 
 int main()
 {
-   
+    // Create a City
+    City city;
+
+    // Populate the city with the houses from the diagram :O
+    city.AddHouse("A", Vector2(20.0f, 40.0f));
+    city.AddHouse("B", Vector2(50.0f, 20.0f));
+    city.AddHouse("C", Vector2(90.0f, 40.0f));
+    city.AddHouse("D", Vector2(60.0f, 80.0f));
+    city.AddHouse("E", Vector2(30.0f, 120.0f));
+    city.AddHouse("F", Vector2(100.0f, 110.0f));
+    city.AddHouse("G", Vector2(150.0f, 130.0f));
+    city.AddHouse("H", Vector2(160.0f, 90.0f));
+    city.AddHouse("I", Vector2(140.0f, 60.0f));
+    city.AddHouse("J", Vector2(180.0f, 30.0f));
+    city.AddHouse("K", Vector2(200.0f, 120.0f));
+    city.AddHouse("L", Vector2(220.0f, 70.0f));
+    city.AddHouse("M", Vector2(240.0f, 50.0f));
+
+    // Connect all houses
+    city.ConnectAllHouses();
+
+    // Print MST connections for both
+    city.PrintMST();
+
+    // Print total cost for both (should be the same)
+    float primDistance = city.GetTotalRoadDistancePrim();
+    std::cout << "\n=== Prim's ===\n";
+    std::cout << "Total distance: " << primDistance << " meters\n";
+    std::cout << "Total cost: $" << primDistance * 10.0f << "\n";
+
+    float kruskalDistance = city.GetToalRoadDistanceKruskal();
+    std::cout << "\n=== Kruskal's ===\n";
+    std::cout << "Total distance: " << kruskalDistance << " meters\n";
+    std::cout << "Total cost: $" << kruskalDistance * 10.0f << "\n";
+
+    std::cout << "\nBoth methods match: " << (primDistance == kruskalDistance ? "YES" : "NO") << "\n";
+
+    return 0;
 }
 
