@@ -14,6 +14,7 @@
 #include "Map.h"
 #include "MSTGraph.h"
 #include "MSTGraphK.h"
+#include "WeightedGraph.h"
 
 struct Item
 {
@@ -1487,124 +1488,126 @@ for (std::size_t i = 0; i < mstEdgesK.Size(); ++i)
 }
 
 // Assignment 7
-class House
+void Assignment7()
 {
-public:
-    House(const std::string& name, const Vector2& pos)
-        : mName(name), mPosition(pos)
+    class House
     {
-
-    }
-    House()
-    {
-
-    }
-    std::string GetName() const
-    {
-        return mName;
-    }
-    Vector2 GetPosition() const
-    {
-        return mPosition;
-    }
-private:
-    std::string mName;
-    Vector2 mPosition;
-};
-
-class City
-{
-public:
-    void AddHouse(const std::string& name, const Vector2& pos)
-    {
-        // goes through mHouses and see if the house is already taken or not
-        for (std::size_t i = 0; i < mHouses.Size(); ++i)
+    public:
+        House(const std::string& name, const Vector2& pos)
+            : mName(name), mPosition(pos)
         {
-            if (name == mHouses[i].GetName() || pos == mHouses[i].GetPosition())
+
+        }
+        House()
+        {
+
+        }
+        std::string GetName() const
+        {
+            return mName;
+        }
+        Vector2 GetPosition() const
+        {
+            return mPosition;
+        }
+    private:
+        std::string mName;
+        Vector2 mPosition;
+    };
+
+    class City
+    {
+    public:
+        void AddHouse(const std::string& name, const Vector2& pos)
+        {
+            // goes through mHouses and see if the house is already taken or not
+            for (std::size_t i = 0; i < mHouses.Size(); ++i)
             {
-                std::cout << "This house is already taken.\n";
-                return;
+                if (name == mHouses[i].GetName() || pos == mHouses[i].GetPosition())
+                {
+                    std::cout << "This house is already taken.\n";
+                    return;
+                }
+            }
+            // push back the new houses
+            House newHouse(name, pos);
+            mHouses.PushBack(newHouse);
+        }
+
+        void ConnectAllHouses()
+        {
+            // go through all the houses and add them as a node of mHouseGraph using .AddItem
+            for (std::size_t i = 0; i < mHouses.Size(); ++i)
+            {
+                mHousesGraph.AddItem(&mHouses[i]);
+            }
+
+            // go through all the houses and add a i and j value and also get the distance between them and use it as the weight
+            for (std::size_t i = 0; i < mHouses.Size(); ++i)
+            {
+                for (std::size_t j = i + 1; j < mHouses.Size(); ++j)
+                {
+                    float distance = mHouses[i].GetPosition().Distance(mHouses[j].GetPosition());
+                    mHouseEdgesGraph.AddEdge(i, j, distance);
+                    mHousesGraph.AddEdge(i, j, distance, true);
+                }
             }
         }
-        // push back the new houses
-        House newHouse(name, pos);
-        mHouses.PushBack(newHouse);
-    }
 
-    void ConnectAllHouses()
-    {
-        // go through all the houses and add them as a node of mHouseGraph using .AddItem
-        for (std::size_t i = 0; i < mHouses.Size(); ++i)
+        float GetTotalRoadDistancePrim()
         {
-            mHousesGraph.AddItem(&mHouses[i]);
+            // return the MST from mHousesGraph using Prim's algorithm
+            mHousesGraph.GenerateMST(0);
+            const auto& mstEdges = mHousesGraph.GetMST();
+
+            // sum up the weights for the total road dinstance 
+            float totalDistance = 0.0f;
+            for (std::size_t i = 0; i < mstEdges.Size(); ++i)
+            {
+                totalDistance += mstEdges[i].weight;
+            }
+
+            // finally return the total distance calculated
+            return totalDistance;
         }
 
-        // go through all the houses and add a i and j value and also get the distance between them and use it as the weight
-        for (std::size_t i = 0; i < mHouses.Size(); ++i)
+        float GetToalRoadDistanceKruskal()
         {
-            for (std::size_t j = i + 1; j < mHouses.Size(); ++j)
+            // same code as before but this time we use MSTGraphK functions instead of MSTGraph
+            mHouseEdgesGraph.GenerateMST();
+            const auto& mstEdges = mHouseEdgesGraph.GetMST();
+
+            float totalDistance = 0.0f;
+            for (std::size_t i = 0; i < mstEdges.Size(); ++i)
             {
-                float distance = mHouses[i].GetPosition().Distance(mHouses[j].GetPosition());
-                mHouseEdgesGraph.AddEdge(i, j, distance);
-                mHousesGraph.AddEdge(i, j, distance, true);
+                totalDistance += mstEdges[i].weight;
+            }
+
+            // finally return the total distance calculated
+            return totalDistance;
+        }
+
+        void PrintMST()
+        {
+            std::cout << "=== Prim's Connections ===\n";
+            const auto& primEdges = mHousesGraph.GetMST();
+            for (std::size_t i = 0; i < primEdges.Size(); ++i)
+            {
+                std::cout << mHouses[primEdges[i].fromIndex].GetName()
+                    << " -> "
+                    << mHouses[primEdges[i].fromIndex].GetName()
+                    << " | Distance: " << primEdges[i].weight << "m\n";
             }
         }
-    }
+    private:
+        Vector<House> mHouses;
+        MSTGraph<House, float> mHousesGraph;
+        MSTGraphK<float> mHouseEdgesGraph;
+    };
 
-    float GetTotalRoadDistancePrim()
-    {
-        // return the MST from mHousesGraph using Prim's algorithm
-        mHousesGraph.GenerateMST(0);
-        const auto& mstEdges = mHousesGraph.GetMST();
+    // main code
 
-        // sum up the weights for the total road dinstance 
-        float totalDistance = 0.0f;
-        for (std::size_t i = 0; i < mstEdges.Size(); ++i)
-        {
-            totalDistance += mstEdges[i].weight;
-        }
-
-        // finally return the total distance calculated
-        return totalDistance;
-    }
-
-    float GetToalRoadDistanceKruskal()
-    {
-        // same code as before but this time we use MSTGraphK functions instead of MSTGraph
-        mHouseEdgesGraph.GenerateMST();
-        const auto& mstEdges = mHouseEdgesGraph.GetMST();
-
-        float totalDistance = 0.0f;
-        for (std::size_t i = 0; i < mstEdges.Size(); ++i)
-        {
-            totalDistance += mstEdges[i].weight;
-        }
-
-        // finally return the total distance calculated
-        return totalDistance;
-    }
-
-    void PrintMST()
-    {
-        std::cout << "=== Prim's Connections ===\n";
-        const auto& primEdges = mHousesGraph.GetMST();
-        for (std::size_t i = 0; i < primEdges.Size(); ++i)
-        {
-            std::cout << mHouses[primEdges[i].fromIndex].GetName()
-                << " -> "
-                << mHouses[primEdges[i].fromIndex].GetName()
-                << " | Distance: " << primEdges[i].weight << "m\n";
-        }
-    }
-private:
-    Vector<House> mHouses;
-    MSTGraph<House, float> mHousesGraph;
-    MSTGraphK<float> mHouseEdgesGraph;
-};
-
-int main()
-{
-    // Create a City
+     // Create a City
     City city;
 
     // Populate the city with the houses from the diagram :O
@@ -1641,6 +1644,222 @@ int main()
 
     std::cout << "\nBoth methods match: " << (primDistance == kruskalDistance ? "YES" : "NO") << "\n";
 
-    return 0;
 }
 
+// Assignment 8
+class City
+{
+public:
+    City(std::string name, Vector2 positon)
+        :mName(name), mPosition(positon)
+    {
+
+    }
+
+    City()
+    {
+
+    }
+
+    std::string GetName() const
+    {
+        return mName;
+    }
+
+    Vector2 GetPosition() const
+    {
+        return mPosition;
+    }
+private:
+    std::string mName;
+    Vector2 mPosition;
+};
+
+class GPS
+{
+public:
+    ~GPS()
+    {
+        for (std::size_t i = 0; i < mCities.Size(); ++i)
+        {
+            delete mCities[i];
+        }
+        mCities.Clear();
+    }
+
+    void AddCity(const std::string& name, const Vector2& pos)
+    {
+        for (std::size_t i = 0; i < mCities.Size(); ++i)
+        {
+            if (name == mCities[i]->GetName() || pos == mCities[i]->GetPosition())
+            {
+                std::cout << "This city already exist\n";
+                return;
+            }
+        }
+        City* newCity = new City(name, pos);
+        mCities.PushBack(newCity);
+        mCityGraph.AddItem(mCities[mCities.Size() - 1]);
+    }
+
+    void ConnectCities(const City* a, const City* b)
+    {
+        std::size_t cityA = 0;
+        std::size_t cityB = 0;
+        bool foundA = false;
+        bool foundB = false;
+        for (std::size_t i = 0; i < mCities.Size(); ++i)
+        {
+            if (a->GetPosition() == mCities[i]->GetPosition())
+            {
+                cityA = i;
+                foundA = true;
+            }
+            if (b->GetPosition() == mCities[i]->GetPosition())
+            {
+                cityB = i;
+                foundB = true;
+            }
+        }
+        if (!foundA || !foundB)
+        {
+            std::cout << "Invalid cities\n";
+            return;
+        }
+        float weight = a->GetPosition().Distance(b->GetPosition());
+        mCityGraph.AddEdge(cityA, cityB, weight);
+    }
+
+    float FindPath(const City* from, const City* to, Vector<const City*>& pathOutput)
+    {
+        int startIndex = -1;
+        int endIndex = -1;
+        for (int i = 0; i < (int)mCities.Size(); ++i)
+        {
+            if (mCities[i]->GetPosition() == from->GetPosition())
+            {
+                startIndex = i;
+            }
+            if (mCities[i]->GetPosition() == to->GetPosition())
+            {
+                endIndex = i;
+            }
+        }
+        if (startIndex == -1 || endIndex == -1)
+        {
+            return -1.0f;
+        }
+
+        return mCityGraph.GetPath(startIndex, endIndex, pathOutput);
+    }
+
+    const City* GetCity(const std::string& name) const
+    {
+        for (std::size_t i = 0; i < mCities.Size(); ++i)
+        {
+            if (mCities[i]->GetName() == name)
+            {
+                return mCities[i];
+            }
+        }
+        return nullptr;
+    }
+
+private:
+    Vector<City*> mCities;
+    WeightedGraph<City, float> mCityGraph;
+};
+int main()
+{
+    GPS gps;
+
+    // b. Populate cities
+    gps.AddCity("Powel River", { 420, 605 });
+    gps.AddCity("Vancouver", { 475, 635 });
+    gps.AddCity("Abbotsford", { 505, 650 });
+    gps.AddCity("Penticton", { 600, 615 });
+    gps.AddCity("Kelowna", { 603, 593 });
+    gps.AddCity("Kamloops", { 570, 555 });
+    gps.AddCity("Nelson", { 685, 608 });
+    gps.AddCity("Creston", { 715, 625 });
+    gps.AddCity("Cranbrook", { 740, 598 });
+    gps.AddCity("Revelstoke", { 642, 526 });
+    gps.AddCity("Lillooet", { 512, 556 });
+    gps.AddCity("Prince George", { 447, 376 });
+    gps.AddCity("Burns Lake", { 375, 362 });
+    gps.AddCity("Smithers", { 330, 330 });
+    gps.AddCity("Terrace", { 285, 345 });
+    gps.AddCity("Prince Rupert", { 227, 352 });
+    gps.AddCity("Dawson Creek", { 550, 268 });
+    gps.AddCity("Fort St. John", { 530, 243 });
+    gps.AddCity("Fort Nelson", { 470, 102 });
+    gps.AddCity("Dease Lake", { 250, 120 });
+    gps.AddCity("Williams Lake", { 500, 475 });
+    gps.AddCity("Quesnel", { 485, 430 });
+
+    // Connect cities (edges based on geographic proximity/roads)
+    gps.ConnectCities(gps.GetCity("Vancouver"), gps.GetCity("Abbotsford"));
+    gps.ConnectCities(gps.GetCity("Vancouver"), gps.GetCity("Powel River"));
+    gps.ConnectCities(gps.GetCity("Vancouver"), gps.GetCity("Kamloops"));
+    gps.ConnectCities(gps.GetCity("Abbotsford"), gps.GetCity("Penticton"));
+    gps.ConnectCities(gps.GetCity("Penticton"), gps.GetCity("Kelowna"));
+    gps.ConnectCities(gps.GetCity("Penticton"), gps.GetCity("Creston"));
+    gps.ConnectCities(gps.GetCity("Kelowna"), gps.GetCity("Kamloops"));
+    gps.ConnectCities(gps.GetCity("Kelowna"), gps.GetCity("Revelstoke"));
+    gps.ConnectCities(gps.GetCity("Kamloops"), gps.GetCity("Lillooet"));
+    gps.ConnectCities(gps.GetCity("Kamloops"), gps.GetCity("Revelstoke"));
+    gps.ConnectCities(gps.GetCity("Kamloops"), gps.GetCity("Williams Lake"));
+    gps.ConnectCities(gps.GetCity("Revelstoke"), gps.GetCity("Cranbrook"));
+    gps.ConnectCities(gps.GetCity("Revelstoke"), gps.GetCity("Nelson"));
+    gps.ConnectCities(gps.GetCity("Nelson"), gps.GetCity("Creston"));
+    gps.ConnectCities(gps.GetCity("Nelson"), gps.GetCity("Cranbrook"));
+    gps.ConnectCities(gps.GetCity("Creston"), gps.GetCity("Cranbrook"));
+    gps.ConnectCities(gps.GetCity("Lillooet"), gps.GetCity("Powel River"));
+    gps.ConnectCities(gps.GetCity("Lillooet"), gps.GetCity("Williams Lake"));
+    gps.ConnectCities(gps.GetCity("Williams Lake"), gps.GetCity("Quesnel"));
+    gps.ConnectCities(gps.GetCity("Williams Lake"), gps.GetCity("Prince George"));
+    gps.ConnectCities(gps.GetCity("Quesnel"), gps.GetCity("Prince George"));
+    gps.ConnectCities(gps.GetCity("Prince George"), gps.GetCity("Burns Lake"));
+    gps.ConnectCities(gps.GetCity("Prince George"), gps.GetCity("Dawson Creek"));
+    gps.ConnectCities(gps.GetCity("Burns Lake"), gps.GetCity("Smithers"));
+    gps.ConnectCities(gps.GetCity("Smithers"), gps.GetCity("Terrace"));
+    gps.ConnectCities(gps.GetCity("Smithers"), gps.GetCity("Dease Lake"));
+    gps.ConnectCities(gps.GetCity("Terrace"), gps.GetCity("Prince Rupert"));
+    gps.ConnectCities(gps.GetCity("Dease Lake"), gps.GetCity("Fort Nelson"));
+    gps.ConnectCities(gps.GetCity("Dawson Creek"), gps.GetCity("Fort St. John"));
+    gps.ConnectCities(gps.GetCity("Fort St. John"), gps.GetCity("Fort Nelson"));
+
+    // d. Find and print paths
+    const float speed = 80.0f; 
+
+    auto PrintPath = [&](const std::string& fromName, const std::string& toName)
+        {
+            Vector<const City*> path;
+            float distance = gps.FindPath(gps.GetCity(fromName), gps.GetCity(toName), path);
+
+            std::cout << "\nRoute: " << fromName << " -> " << toName << "\n";
+            std::cout << "Path: ";
+            for (int i = path.Size() - 1; i >= 0; --i)
+            {
+                std::cout << path[i]->GetName();
+                if (i > 0) std::cout << " -> ";
+            }
+            std::cout << "\n";
+            std::cout << "Total Distance: " << distance << " km\n";
+
+            // e. Print estimated travel time
+            float hours = distance / speed;
+            int h = (int)hours;
+            int m = (int)((hours - h) * 60);
+            std::cout << "Estimated Duration: " << h << "h " << m << "m\n";
+        };
+
+    PrintPath("Vancouver", "Cranbrook");   // d.i
+    PrintPath("Prince Rupert", "Kelowna");   // d.ii
+    PrintPath("Fort Nelson", "Creston");     // d.iii
+
+
+    // :) last homework 
+
+    return 0;
+}
